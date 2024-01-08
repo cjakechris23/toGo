@@ -1,0 +1,496 @@
+<template>
+    <div class="slds-grid slds-wrap main-div">
+        <!-- Questions Container-->
+        <div class="slds-col main-question-container">
+            <!-- Questions -->
+            <div class="slds-m-horizontal_xx-large">
+                <table>
+                    <tbody>
+                        <template for:each={questionsList} for:item="question" for:index="index">
+                            <tr key={question.questionIndex}>   
+                                <td>
+                                    <div class="slds-grid slds-wrap question-container slds-p-around_large">
+                                        <div class="slds-col slds-grid slds-size_12-of-12 slds-m-vertical_small button-group">
+                                            <div class="slds-col slds-grow-none">
+                                                <!-- Required -->
+                                                <lightning-input
+                                                    data-id={index}
+                                                    type="checkbox" 
+                                                    label="Required?"
+                                                    checked={question.IsRequired__c}
+                                                    onchange={handleRequiredToggleChange}
+                                                    class="slds-p-top_xx-small">
+                                                </lightning-input>
+                                            </div>
+                                            <!--Display Logic Button-->
+                                         <!--  <div class="slds-col slds-grow-none">-->
+                                                <!-- Display Logic -->
+                                                 <!--<lightning-button
+                                                    data-id={index} 
+                                                    title="Display Logic"
+                                                    label="Display Logic"
+                                                    variant="neutral"
+                                                    class="slds-p-horizontal_xx-small" 
+                                                    alternative-text="Display Logic"
+                                                    onclick={handleOpenDisplayLogicModal}
+                                                    disabled={question.DisplayLogicDisabled}>
+                                                </lightning-button>
+                                            </div>-->
+                                            <div class="slds-col slds-grow-none">
+                                                <lightning-button-group>
+                                                     <!-- Delete Question -->
+                                                    <lightning-button-icon
+                                                        data-id={index} 
+                                                        icon-name="utility:delete"
+                                                        title="Delete Question"
+                                                        variant="neutral" 
+                                                        alternative-text="Delete Question"
+                                                        onclick={handleDeleteQuestion}
+                                                        disabled={question.DeleteQuestionDisabled}>
+                                                    </lightning-button-icon>
+                                                    <!-- Move Question Up -->
+                                                    <lightning-button-icon
+                                                        data-id={index}
+                                                        name="up"
+                                                        icon-name="utility:chevronup"
+                                                        alternative-text="Move question up"
+                                                        onclick={handleValidateDisplayLogic}>
+                                                    </lightning-button-icon>
+                                                    <!-- Move Question Down -->
+                                                    <lightning-button-icon
+                                                        data-id={index}
+                                                        name="down"
+                                                        icon-name="utility:chevrondown"
+                                                        alternative-text="Move question down"
+                                                        onclick={handleValidateDisplayLogic}>
+                                                    </lightning-button-icon>
+                                                </lightning-button-group>
+                                               
+                                            </div>
+                                        </div>
+
+                                        <div class="slds-col slds-grid slds-size_12-of-12">
+                                            <div class="slds-col slds-grow-none slds-m-right_small">
+                                                <!-- Question Number -->
+                                                <lightning-formatted-number 
+                                                    value={question.QuestionOrder__c}>
+                                                </lightning-formatted-number>
+                                            </div>
+                                            <div class="slds-col ">
+                                                <!-- Question -->
+                                                <lightning-textarea
+                                                    data-id={index}
+                                                    data-question={question.questionIndex}  
+                                                    placeholder="Enter your question here..."
+                                                    value={question.QuestionName__c}
+                                                    variant="label-hidden"
+                                                    onchange={handleQuestionChange}
+                                                    onfocus={handleInitialQuestion}>
+                                                </lightning-textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="slds-col slds-size_8-of-12 slds-m-vertical_x-small slds-m-left_medium">
+                                            <!-- Boolean -->
+                                            <template if:true={question.boolean}>
+                                                <div class="slds-grid">
+                                                    <div class="slds-col slds-grid">
+                                                        <div class="slds-col slds-size_8-of-12">
+                                                            <table width="fit-content" style="display: inline-block;" class="slds-align-middle">
+                                                                <tr>
+                                                                    <template for:each={question.SurveyQuestionChoices__r} for:item="option" for:index="index">
+                                                                        <td key={option.iconName} class="slds-p-right_small" style="display: inline-block;">
+                                                                            <lightning-icon
+                                                                                data-id={index} 
+                                                                                data-question={question.questionIndex} 
+                                                                                icon-name={option.iconName} 
+                                                                                alternative-text={option.Name}
+                                                                                title={option.Name}>
+                                                                            </lightning-icon>
+                                                                        </td>
+                                                                        <td key={option.optionIndex} class="slds-p-right_small">
+                                                                            <lightning-input
+                                                                                data-id={index} 
+                                                                                data-question={question.questionIndex}
+                                                                                type="text"
+                                                                                value={option.Name}
+                                                                                variant="label-hidden">
+                                                                            </lightning-input>
+                                                                        </td>
+                                                                    </template>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                        <!-- Icon pair selection -->
+                                                        <div class="slds-col slds-size_4-of-12 slds-align-middle" style="display: inline-block;">
+                                                            <lightning-combobox 
+                                                                data-id={index}
+                                                                data-question={question.questionIndex}
+                                                                name="" 
+                                                                placeholder="Select an icon pair"
+                                                                value={question.RatingQuestionTypeIconPair}
+                                                                onchange={handleSelectIconPair}
+                                                                options={iconPairs}
+                                                                variant="label-hidden"
+                                                                class="icon-pairs">
+                                                            </lightning-combobox>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </template>
+
+                                            <!-- Rating -->
+                                            <template if:true={question.rating}>
+                                                <!-- Rating scale -->
+                                                <table>
+                                                    <tr>
+                                                        <template for:each={question.SurveyQuestionChoices__r} for:item="option" for:index="index">
+                                                            <th key={option.optionIndex} class="slds-m-vertical_xx-small rating">
+                                                                <input 
+                                                                    type="radio" 
+                                                                    value={option.ChoiceOrder__c} 
+                                                                    data-id={index} 
+                                                                    data-question={question.questionIndex}/>
+                                                                <label title={option.Name} data-id={index} data-question={question.questionIndex}></label>
+                                                            </th>
+                                                        </template>
+                                                    </tr>
+                                                </table>
+
+                                                <!-- Adjust rating scale -->
+                                                <div class="slds-grid slds-wrap rating-scale">
+                                                    <div class="slds-col slds-grow-none slds-align-middle">
+                                                        <lightning-button-icon icon-name="utility:dash"
+                                                            data-id={index}
+                                                            data-question={question.questionIndex}
+                                                            variant="bare"
+                                                            class="slds-p-horizontal_xx-small" 
+                                                            alternative-text="Decrease rating scale"
+                                                            onclick={handleDecreaseRatingScale}>
+                                                        </lightning-button-icon>
+                                                    </div>
+                                                    <div class="slds-col slds-grow-none slds-align-middle slds-m-horizontal_medium ">
+                                                        <p>Change rating scale</p>
+                                                    </div>
+                                                    <div class="slds-col slds-grow-none slds-align-middle">
+                                                        <lightning-button-icon icon-name="utility:add"
+                                                            data-id={index}
+                                                            data-question={question.questionIndex}
+                                                            variant="bare"
+                                                            class="slds-p-horizontal_xx-small" 
+                                                            alternative-text="Increase rating scale"
+                                                            onclick={handleIncreaseRatingScale}>
+                                                        </lightning-button-icon>
+                                                    </div>
+                                                </div>
+                                            </template>
+
+                                            <!-- Short Answer -->
+                                            <template if:true={question.shortText}>
+                                                <lightning-input
+                                                    data-id={index}
+                                                    name=""
+                                                    variant="label-hidden"
+                                                    placeholder="Short answer text preview..."
+                                                    readonly>
+                                                </lightning-input>
+                                            </template>
+
+                                            <!-- Paragraph -->
+                                            <template if:true={question.freeText}>
+                                                <lightning-textarea 
+                                                    data-id={index}
+                                                    name="" 
+                                                    variant="label-hidden"
+                                                    placeholder="Long answer text preview..."
+                                                    readonly>
+                                                </lightning-textarea>
+                                            </template>
+
+                                            <!-- Multiple Selection -->
+                                            <template if:true={question.multiSelectPicklist}>
+                                                <!-- <lightning-input
+                                                    data-id={index}
+                                                    type="number"
+                                                    label="Maximum number of answers to be selected: "
+                                                    value={question.MaxSelection}>
+                                                </lightning-input> -->
+                                                <table>
+                                                    <tbody>
+                                                        <template for:each={question.SurveyQuestionChoices__r} for:item="option" for:index="index">
+                                                            <tr key={option.optionIndex}>
+                                                
+                                                                <!-- Selector -->
+                                                                <td class="slds-p-bottom_x-small">
+                                                                    <input type="checkbox" name={option.optionIndex}>
+                                                                </td>
+                                                
+                                                                <!-- Option -->
+                                                                <td class="slds-p-bottom_x-small">
+                                                                    <lightning-input
+                                                                        data-id={index} 
+                                                                        data-question={question.questionIndex}
+                                                                        value={option.Name}
+                                                                        placeholder="Enter choice"
+                                                                        variant="label-hidden"
+                                                                        onchange={handleMultipleOptionChange}
+                                                                        onblur={handleOptionOnBlur}>
+                                                                    </lightning-input>
+                                                                </td>
+                                                
+                                                                <!-- Delete Option -->
+                                                                <td class="slds-p-bottom_x-small">
+                                                                    <lightning-button-icon icon-name="utility:close"
+                                                                        data-id={index}
+                                                                        data-question={question.questionIndex}
+                                                                        title="Delete Option"
+                                                                        variant="bare"
+                                                                        class="slds-p-horizontal_xx-small" 
+                                                                        alternative-text="Delete Option"
+                                                                        onclick={handleDeleteOption}>
+                                                                    </lightning-button-icon>      
+                                                                    </td>
+                                                                </tr>     
+                                                        </template>
+                                                        <!--<td class="slds-p-bottom_x-small slds-align_absolute-center">
+                                                            <lightning-button-icon icon-name="utility:add"
+                                                                    data-id={index}
+                                                                    data-question={question.questionIndex}
+                                                                    title="Add Option"
+                                                                    variant="bare"
+                                                                    class="slds-p-horizontal_xx-small" 
+                                                                    alternative-text="Add picklist"
+                                                                    onclick={handleOptionOnBlur}>
+                                                                </lightning-button-icon>
+                                                        </td>-->
+                                                    </tbody>
+                                                </table>
+                                            </template>
+
+                                            <!-- Single Selection -->
+                                            <template if:true={question.radioButton}>
+                                                <table class="slds-table_header-hidden">
+                                                    <tbody>
+                                                        <template for:each={question.SurveyQuestionChoices__r} for:item="option" for:index="index">
+                                                            <tr key={option.optionIndex}>
+
+                                                                <!-- Selector -->
+                                                                <td class="slds-p-bottom_x-small">
+                                                                    <input type="radio" name={option.optionIndex}>
+                                                                </td>
+
+                                                                <!-- Option -->
+                                                                <td class="slds-p-bottom_x-small">
+                                                                    <lightning-input
+                                                                        data-id={index}
+                                                                        data-question={question.questionIndex}
+                                                                        value={option.Name}
+                                                                        placeholder="Enter choice"
+                                                                        variant="label-hidden"
+                                                                        onchange={handleMultipleOptionChange}
+                                                                        onblur={handleOptionOnBlur}>
+                                                                    </lightning-input>
+                                                                </td>
+
+                                                                <!-- Delete Option -->
+                                                                <td class="slds-p-bottom_x-small">
+                                                                    <lightning-button-icon icon-name="utility:close"
+                                                                        title="Delete Option"
+                                                                        variant="bare"
+                                                                        class="slds-p-horizontal_xx-small" 
+                                                                        alternative-text="Delete Option"
+                                                                        data-question={question.questionIndex}
+                                                                        data-id={index}
+                                                                        onclick={handleDeleteOption}
+                                                                        disabled={question.DeleteOptionDisabled}>
+                                                                    </lightning-button-icon>
+                                                                </td>
+                                                            </tr>
+                                                        </template>
+                                                    </tbody>
+                                                </table>
+                                            </template>
+
+                                            <!-- Drop Down -->
+                                            <template if:true={question.dropDown}>
+                                                <table>
+                                                    <tbody>
+                                                        <template for:each={question.SurveyQuestionChoices__r} for:item="option" for:index="index">
+                                                            <tr key={option.optionIndex} class="slds-m-vertical_small">
+
+                                                                <!-- Selector -->
+                                                                <td>
+                                                                    <lightning-formatted-number 
+                                                                        value={option.ChoiceOrder__c}
+                                                                        class="slds-m-right_x-small"></lightning-formatted-number>
+                                                                </td>
+
+                                                                <!-- Option -->
+                                                                <td>
+                                                                    <lightning-input
+                                                                        data-question={question.questionIndex}
+                                                                        data-id={index} 
+                                                                        value={option.Name}
+                                                                        variant="label-hidden"
+                                                                        onchange={handleMultipleOptionChange}
+                                                                        onblur={handleOptionOnBlur}>
+                                                                    </lightning-input>
+                                                                </td>
+
+                                                                <!-- Delete Option -->
+                                                                <td>
+                                                                    <lightning-button-icon icon-name="utility:close"
+                                                                        title="Delete Option"
+                                                                        variant="bare"
+                                                                        class="slds-p-horizontal_xx-small" 
+                                                                        alternative-text="Delete Option" 
+                                                                        data-question={question.questionIndex}
+                                                                        data-id={index}
+                                                                        onclick={handleDeleteOption}
+                                                                        disabled={question.DeleteOptionDisabled}>
+                                                                    </lightning-button-icon>
+                                                                </td>
+                                                            </tr>
+                                                        </template>
+                                                    </tbody>
+                                                </table>
+                                            </template>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+                
+                <!-- Add Question Button-->
+                <div class="slds-align_absolute-center">
+                    <lightning-button
+                        variant="brand"
+                        label="Add question"
+                        icon-name="utility:add"
+                        icon-position="left"
+                        onclick={handleClickAddQuestion}
+                        class="slds-align_absolute-center slds-m-around_large"
+                        style="max-width: max-content;">
+                    </lightning-button>
+                </div>
+
+                <!-- Question Type Selection Panel -->
+                <div data-id="questionTypesPanel" class="question-types-panel slds-m-bottom_large slds-hide">
+                    <header class="slds-p-around_small slds-align_absolute-center add-question-panel-header">ADD QUESTION</header>
+                    <div class="slds-grid slds-align_absolute-center">
+                        <!-- 12/15 START -->
+                        <div class="slds-col slds-grow-none slds-p-around_small">
+                            <lightning-button
+                                name="ShortText"
+                                variant="brand"
+                                label="Short Text"
+                                icon-name="utility:textbox"
+                                icon-position="left"
+                                onclick={handleSelectQuestionType}
+                                style="max-width: max-content;">
+                            </lightning-button>
+                        </div>
+                        <div class="slds-col slds-grow-none slds-p-around_small">
+                            <lightning-button
+                                name="RadioButton"
+                                variant="brand"
+                                label="Single Selection"
+                                icon-name="utility:rating"
+                                icon-position="left"
+                                onclick={handleSelectQuestionType}
+                                style="max-width: max-content;">
+                            </lightning-button>
+                        </div>
+                        <div class="slds-col slds-grow-none slds-p-around_small">
+                            <lightning-button
+                                name="MultiSelectPicklist"
+                                variant="brand"
+                                label="Multiple Selection"
+                                icon-name="utility:check"
+                                icon-position="left"
+                                onclick={handleSelectQuestionType}
+                                style="max-width: max-content;">
+                            </lightning-button>
+                        </div>
+                        <!-- 12/15 END -->
+                        <div class="slds-col slds-grow-none slds-p-around_small">
+                            <lightning-button
+                                name="Boolean"
+                                variant="brand"
+                                label="Like or Dislike"
+                                icon-name="utility:like"
+                                icon-position="left"
+                                onclick={handleSelectQuestionType}
+                                style="max-width: max-content;">
+                            </lightning-button>
+                        </div>
+                        <div class="slds-col slds-grow-none slds-p-around_small">
+                            <lightning-button
+                                name="Rating"
+                                variant="brand"
+                                label="Rating"
+                                icon-name="utility:favorite"
+                                icon-position="left"
+                                onclick={handleSelectQuestionType}
+                                style="max-width: max-content;">
+                            </lightning-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Display Logic Modal -->
+    <template if:true={openDisplayLogicModal}>
+        <c-survey-display-question-logic-modal question-index={selectedQuestionIndex} existing-question-display-logic-condition={questionDisplayLogicCondition} 
+            onclosedisplaylogicmodal={handleCloseDisplayLogicModal} questions-list-clone={questionsListClone} onsavelogicslist={handleLogicsList}
+            existing-logics-list={existingLogicsList} has-existing-logics={hasExistingLogics} is-existing-survey={newSurvey}>
+        </c-survey-display-question-logic-modal>
+    </template>
+
+    <!-- Delete Display Existing Logic Modal -->
+    <template if:true={openDeleteDisplayLogicModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_small slds-backdrop">
+            <div class="slds-modal__container">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse">
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small"
+                            onclick={handleCloseDeleteQuestionDisplayLogic}>
+                        </lightning-icon>
+                    <span class="slds-assistive-text">Cancel and close</span>
+                </button>
+    
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Delete question display logic?</h2>
+                </header>
+    
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <p class="slds-align_absolute-center">This question either contains a display logic or is referred by display logic in one or more questions. If you move this question, the associated display logic is deleted.</p>
+                </div>
+            
+                <div class="slds-modal__footer">
+                    <lightning-button 
+                        label="Cancel" 
+                        slot="actions" 
+                        onclick={handleCloseDeleteQuestionDisplayLogic}
+                        variant="brand-outline" 
+                        class="slds-var-m-left_x-small"> 
+                    </lightning-button>
+                    <lightning-button 
+                        label="Move question" 
+                        slot="actions" 
+                        onclick={handleDeleteQuestionDisplayLogic} 
+                        variant="brand" 
+                        class="slds-var-m-left_x-small"> 
+                    </lightning-button>
+                </div>
+            </div>
+        </section>          
+    </template>
+</template>

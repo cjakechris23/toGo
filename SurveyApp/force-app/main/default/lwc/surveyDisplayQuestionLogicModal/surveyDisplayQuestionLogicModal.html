@@ -1,0 +1,130 @@
+<template>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_small slds-backdrop">
+        <div class="slds-modal__container">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse">
+                    <lightning-icon icon-name="utility:close"
+                        alternative-text="close"
+                        variant="inverse"
+                        size="small"
+                        onclick={handleCloseDisplayLogicModal}>
+                    </lightning-icon>
+                <span class="slds-assistive-text">Cancel and close</span>
+            </button>
+
+            <header class="slds-modal__header">
+                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Question Display Logic</h2>
+            </header>
+
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <div>
+                    <!-- Condition -->
+                    <lightning-combobox 
+                        name="" 
+                        label="Select Condition"
+                        value={questionDisplayLogicCondition}
+                        onchange={handleDisplayLogicConditionChange}
+                        options={displayLogicOptions}
+                        class="slds-m-horizontal_medium"
+                        style="overflow:visible;">
+                    </lightning-combobox>
+                    
+                    <table class="slds-m-around_medium" style="table-layout: fixed;">
+                        <tbody>
+                            <template for:each={logicsList} for:item="logic" for:index="index">
+                                <tr key={logic.logicIndex}>
+                                    <td>
+                                        <!-- Question -->
+                                        <lightning-combobox
+                                            data-id={index}
+                                            label="Question"
+                                            options={questionsList}
+                                            value={logic.QuestionName__c}
+                                            onchange={handleQuestionChange}
+                                            style="overflow:visible;"
+                                            disabled={logic.QuestionDisabled}>
+                                        </lightning-combobox>
+                                    </td>
+                                    <td class="slds-p-horizontal_x-small">
+                                        <!-- Operator -->
+                                        <lightning-combobox
+                                            data-id={index} 
+                                            label="Operator"
+                                            options={operators}
+                                            value={logic.Operator__c}
+                                            onchange={handleOperatorChange}
+                                            style="overflow:visible;"
+                                            required>
+                                        </lightning-combobox>
+                                    </td>
+                                    <td class="slds-p-right_x-small">
+                                        <!-- Text Input Response -->
+                                        <template if:true={logic.textInputResponse}>
+                                            <lightning-input
+                                                data-id={index} 
+                                                label="Response"
+                                                value={logic.Response__c}
+                                                onchange={handleResponseChange}
+                                                required>
+                                            </lightning-input>
+                                        </template>
+                                        <!-- Combobox Response -->
+                                        <template if:false={logic.textInputResponse}>
+                                            <lightning-combobox
+                                                data-id={index} 
+                                                label="Response"
+                                                options={logic.ResponseOptions}
+                                                value={logic.Response__c}
+                                                onchange={handleResponseChange}
+                                                style="overflow:visible;"
+                                                required>
+                                            </lightning-combobox>
+                                        </template>
+                                    </td>
+                                    <td class="slds-p-top_large slds-p-right_small">
+                                        <lightning-button-icon
+                                            data-id={index} 
+                                            icon-name="utility:delete"
+                                            title="Delete Logic"
+                                            variant="neutral"
+                                            alternative-text="Delete Logic"
+                                            onclick={handleDeleteLogic}
+                                            disabled={logic.DeleteLogicDisabled}>
+                                        </lightning-button-icon>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+
+                    <!-- Add Logic Button-->
+                    <lightning-button
+                        variant="brand"
+                        label="Add logic"
+                        icon-name="utility:add"
+                        icon-position="left"
+                        onclick={handleAddLogic}
+                        class="slds-align_absolute-center"
+                        style="max-width: max-content;">
+                    </lightning-button>
+                </div>
+            </div>
+            
+            <div class="slds-modal__footer">
+                <lightning-button 
+                    label="Cancel" 
+                    slot="actions" 
+                    onclick={handleCloseDisplayLogicModal}
+                    variant="brand-outline" 
+                    class="slds-var-m-left_x-small"> 
+                </lightning-button>
+                <lightning-button 
+                    label="Save logic" 
+                    slot="actions" 
+                    onclick={handleSaveQuestionDisplayLogic} 
+                    variant="brand" 
+                    class="slds-var-m-left_x-small"> 
+                </lightning-button>
+            </div>
+        </div>
+    </section>  
+</template>

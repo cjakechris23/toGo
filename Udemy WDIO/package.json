@@ -1,0 +1,22 @@
+{
+  "name": "my-new-project",
+  "type": "module",
+  "devDependencies": {
+    "@wdio/cli": "^8.16.20",
+    "@wdio/local-runner": "^8.16.20",
+    "@wdio/mocha-framework": "^8.16.17",
+    "@wdio/spec-reporter": "^8.16.17",
+    "chromedriver": "^104.0.0",
+    "prettier": "^3.0.3",
+    "wdio-chromedriver-service": "^8.1.1",
+    "wdio-edgedriver-service": "^3.0.3"
+  },
+  "scripts": {
+    "wdio": "wdio run wdio.conf.js",
+    "testgoogle": "wdio run ./wdio.conf.js --spec ./test/specs/advance.e2e.js",
+    "testfeedback": "wdio run ./wdio.conf.js --spec ./test/specs/e2e/feedback.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1"
+  }
+}

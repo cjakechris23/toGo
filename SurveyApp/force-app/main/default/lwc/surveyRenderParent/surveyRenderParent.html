@@ -1,0 +1,53 @@
+<!-- 
+*********************************************************************************************************
+Name: suveyRenderParent.html
+==========================================================================================================
+Purpose: suveyRenderParent html component
+==========================================================================================================
+History
+
+VERSION    AUTHOR                                               DATE                DESCRIPTION
+1.0        Kenneth Kim (kennkim@deloitte.com)            		01/30/2023          Initial version
+1.1        Kenneth Kim (kennkim@deloitte.com)            		02/07/2023          Removed static data, added child component
+1.2        Kenneth Kim (kennkim@deloitte.com)            		02/17/2023          Added button element for submit
+
+*********************************************************************************************************
+-->
+<template>
+    <div class="slds-grid slds-wrap slds-grid_align-center main-parent-div" style={backgroundImage}>
+        <div class="slds-col slds-size_5-of-12 survey-form-card slds-m-vertical_x-large" style="position:relative;">
+            <lightning-card title={customSurveyName}>
+                <div class="slds-text-heading_medium slds-m-horizontal_medium slds-var-m-vertical_xx-large">{surveyName}</div>  
+                <div if:true={isLoading}>
+                    <lightning-spinner
+                        alternative-text="Loading..." variant="brand">
+                    </lightning-spinner>
+                </div>
+                <template if:false={isSuccess}>
+                    <template if:true={questionDetailList}>
+                        <template for:each={questionDetailList} for:item="questionDetails">
+                                <c-survey-render-child key={questionDetails.Id} class="survey-question-child" data-key={questionDetails.Id} question-details={questionDetails} onanswerchange={handleAnswerChange}></c-survey-render-child>
+                        </template>
+                    </template>   
+                    <div class="slds-align_absolute-center" style="height:5rem"> 
+                        <lightning-button variant="brand" label="Submit" title="Submit" onclick={handleSubmit} class="slds-m-left_x-small"></lightning-button>
+                    </div>
+                </template>
+
+                
+
+
+                <template if:true={isSuccess}>
+                    <div class="slds-text-heading_medium slds-m-horizontal_medium slds-var-m-vertical_xx-large">
+                        <p class="slds-text-heading_medium  slds-var-m-bottom_medium">Thank you for participating</p>
+                        <p class="slds-text-heading_small">Your responses have been saved.</p>
+                    </div>
+                    <div class="slds-m-horizontal_medium slds-var-m-vertical_xx-large">
+                        <lightning-button variant="brand" label="Close" title="Next" onclick={handleNextFlow}></lightning-button>
+                    </div>
+                    <br />
+                </template>   
+            </lightning-card>
+        </div>
+    </div>
+</template>

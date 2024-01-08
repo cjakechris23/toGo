@@ -1,0 +1,150 @@
+<template>
+    <div class="main-div" style="position:relative;"> 
+        <div class="slds-grid slds-m-bottom_large slds-p-horizontal_x-large header">
+            <div class="slds-col slds-align-middle slds-p-vertical_medium">
+                <div class="slds-grid">
+                    <div class="slds-col">
+                        <!-- Survey Name -->
+                        <label class="slds-form-element__label slds-p-top_none slds-text-color_inverse">Survey Name</label>
+                        <lightning-input
+                            variant="label-hidden"
+                            value={surveyName}
+                            onchange={handleChangeSurveyName}>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-m-horizontal_medium">
+                        <!-- Survey Type -->
+                        <label class="slds-form-element__label slds-p-top_none slds-text-color_inverse">Select Survey Type</label>
+                        <br>
+                        <lightning-combobox 
+                            name="" 
+                            variant="label-hidden"
+                            value={surveyType}
+                            onchange={handleSurveyTypeChange}
+                            options={surveyTypes}
+                            class="survey-type-combobox"
+                            style="overflow:visible;">
+                        </lightning-combobox>
+                    </div>
+                </div>
+                <!-- Survey Version -->
+            </div>
+
+            <!-- Tab Set -->
+            <div class="slds-col slds-grid slds-align_absolute-center slds-m-vertical_none">
+                <div data-id="QuestionsTab" class="slds-col slds-grow-none slds-p-horizontal_medium">
+                    <button class="tab" value="1" onclick={handleTabSelected}>Questions</button>
+                    <div></div>
+                </div>
+                <div data-id="SendTab" class="slds-col slds-grow-none slds-p-horizontal_medium">
+                    <button class="tab" value="2" onclick={handleTabSelected}>Send</button>
+                </div>
+            </div>
+            
+            <div class="slds-col slds-align-middle slds-p-vertical_medium">
+                <div class="slds-grid slds-float_right">
+                    <div if:false={activeButtonDisable} class="slds-col">
+                        <!-- Save Survey button -->
+                        <lightning-button
+                            variant="brand"
+                            label="Save"
+                            onclick={handleSaveSurvey}
+                            style="max-width: max-content;">
+                        </lightning-button>
+                    </div>
+                    <div if:true={latestVersionId} class="slds-col slds-m-left_x-small">
+                        <!-- Preview Survey button -->
+                        <lightning-button
+                            variant="brand-outline"
+                            label="Preview"
+                            onclick={handlePreviewSurvey}>
+                        </lightning-button> 
+                    </div>
+                     <div if:true={latestVersionId}>
+                        <div if:false={activeButtonDisable} class="slds-col slds-m-left_x-small">
+                            <!-- Activate Survey button -->
+                            <lightning-button
+                                variant="brand"
+                                label="Activate"
+                                onclick={handleActivateSurvey}>
+                            </lightning-button> 
+                        </div>
+                     </div>
+                     <div if:true={latestVersionId} class="slds-col slds-m-left_x-small"> 
+                        <lightning-button 
+                            variant="brand" 
+                            label="Clone" 
+                            title="Clone" 
+                            onclick={handleClone}>
+                        </lightning-button>
+                    </div>
+                    <div if:false={latestVersionId} class="slds-col slds-m-left_x-small">
+                        <!-- Cancel button -->
+                        <lightning-button
+                            variant="brand-outline"
+                            label="Cancel"
+                            onclick={handleCancel}>
+                        </lightning-button> 
+                     </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <!--Banner for Activate Survey-->
+        <div if:true={activeButtonDisable} class="slds-notify slds-notify_alert surveyBannerActive" role="alert">
+            <span class="slds-assistive-text">info</span>
+            <span class="slds-icon_container slds-icon-utility-user slds-m-right_x-small" title="Description of icon when needed">
+              <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#user"></use>
+              </svg>
+            </span>
+           
+                This survey is currently active. Any change will no longer be saved for this survey.
+            
+        </div>    
+
+        <!-- Page Content -->
+        <div data-id="Questions" class="slds-show">
+            <c-survey-add-question-container existing-questions-list={existingQuestionsList} is-existing-survey={isExistingSurvey} if:true={hasQuestions}></c-survey-add-question-container>
+            <c-survey-add-question-container is-existing-survey={isExistingSurvey} if:false={hasQuestions}></c-survey-add-question-container>
+        </div>
+        <div data-id="Send" class="slds-hide">
+            <c-survey-send-module survey-version-id={latestVersionId} survey-id={surveyRecordId}></c-survey-send-module>
+        </div>
+
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" variant="brand" size="large"></lightning-spinner>
+       </template>
+    </div>
+
+    <template if:true={isCancelModalOpen}>
+        <!-- Modal/Popup Box LWC starts here -->
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box LWC header here -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeCancelModal}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Cancel</h2>
+                </header>
+                <!-- Modal/Popup Box LWC body starts here -->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <p>Are you sure you want to cancel survey creation? Any unsaved changes will be lost</p>
+                </div>
+                <!-- Modal/Popup Box LWC footer starts here -->
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeCancelModal} title="No">No</button>
+                    <button class="slds-button slds-button_brand" onclick={navigateToObjectHome} title="Yes">Yes</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+   
+</template>

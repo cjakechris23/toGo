@@ -1,0 +1,39 @@
+{
+  "name": "udemy-wdio-framework-typescript",
+  "version": "1.0.0",
+  "description": "Page Object CIMP RIRO with Typescript",
+  "main": "index.js",
+  "author": "Jake Chris C Delos Reyes",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.9.4",
+    "@wdio/cli": "^8.17.0",
+    "@wdio/local-runner": "^8.17.0",
+    "@wdio/mocha-framework": "^8.17.0",
+    "@wdio/spec-reporter": "^8.17.0",
+    "chromedriver": "^104.0.0",
+    "prettier": "^3.0.3",
+    "salesforce-service": "^0.0.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2",
+    "wdio-chromedriver-service": "^8.1.1",
+    "wdio-edgedriver-service": "^3.0.3"
+  },
+  "scripts": {
+    "wdio": "wdio run wdio.conf.ts",
+    "testcimp": "wdio run ./wdio.conf.ts --spec ./test/specs/CIMPLogin.ts",
+    "testcimp56": "wdio run ./wdio.conf.ts --spec ./test/specs/Sprint7/CIMP-56.ts",
+    "testcimp33": "wdio run ./wdio.conf.ts --spec ./test/specs/Sprint7/CIMP-33.ts",
+    "createcimp": "wdio run ./wdio.conf.ts --spec ./test/specs/Sprint7/CIMPCreation.ts",
+    "test": "wdio run ./wdio.conf.ts --spec ./test/specs/Sprint7/test.ts",
+    "crypt": "wdio run ./wdio.conf.ts --spec ./utils/encrypt.js",
+    "testcimp185": "wdio run ./wdio.conf.ts --spec ./test/specs/HyperCare/CIMP-185.ts"
+  },
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.3.1",
+    "node-salesforce": "^0.8.0",
+    "ts-dotenv": "^0.9.1"
+  }
+}

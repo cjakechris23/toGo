@@ -1,0 +1,31 @@
+.main-div {
+    /* background-color: #FAFAF9; */
+    background-color: #F3F5F7;
+}
+
+.header {
+    background-color: #294057;
+}
+
+.survey-type-combobox {
+    width: fit-content !important;
+    display: inline-block;
+}
+
+.tab {
+    height: 100% !important; 
+    width: fit-content;
+    background-color: #294057;
+    color: #FFFFFF;
+    border: none;
+}
+
+.tab-selected {
+    height: 100%; 
+    border-bottom: 5px solid #0176D3;
+}
+
+.surveyBannerActive{
+    margin-bottom: 20px;
+    font-size: 14px;
+}

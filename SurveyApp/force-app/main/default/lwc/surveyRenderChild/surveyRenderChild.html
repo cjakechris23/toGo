@@ -1,0 +1,112 @@
+<!--
+*********************************************************************************************************
+Name: suveyRenderParent.html
+==========================================================================================================
+Purpose: suveyRenderParent html component
+==========================================================================================================
+History
+
+VERSION    AUTHOR                                               DATE                DESCRIPTION
+1.0        Kenneth Kim (kennkim@deloitte.com)            		02/07/2023          Initial version
+1.1        Kenneth Kim (kennkim@deloitte.com)            		02/10/2023          Added elements for: boolean question and star rating question
+1.2        Kenneth Kim (kennkim@deloitte.com)            		02/16/2023          Updated label elements for radio buttons due to LWC limitation
+1.3        Kenneth Kim (kennkim@deloitte.com)            		02/20/2023          Updated label elements for radio buttons due to LWC limitation
+1.4        Kenneth Kim (kennkim@deloitte.com)            		02/20/2023          Added custom required symbol "*" for custom input elements
+1.5        Kenneth Kim (kennkim@deloitte.com)            		02/27/2023          Updated boolean buttons markup to include choiceid data attribute
+*********************************************************************************************************
+-->
+
+<template>
+    <div class="slds-m-horizontal_large slds-m-vertical_xx-large">
+
+        <!-- TEXT INPUT QUESTION-->
+        <template if:true={isShortTextQuestion}>
+            <lightning-textarea 
+                name="textAreaInput" 
+                label={questionDetails.Name}
+                placeholder="Type here..." 
+                onchange={handleChangeTextInput}
+                required={questionDetails.IsRequired__c}
+                data-id={questionDetails.Id}
+                class="custom-question-label">
+            </lightning-textarea>
+        </template>
+
+        <!-- SINGLE SELECTION QUESTION-->
+        <template if:true={isSingleSelectionQuestion}>
+            <label class="custom-question-label">
+                <template if:true={questionDetails.IsRequired__c}>
+                    <span class="custom-required-symbol slds-text-body_small slds-text-color_error">* </span>
+                </template>
+                {questionDetails.Name}
+            </label>
+            <lightning-radio-group name="radioGroup"
+                label={questionDetails.Name}
+                options={selectionOptions}
+                value={value}
+                type="radio"
+                onchange={handleChangeSingleSelection}
+                required={questionDetails.IsRequired__c}
+                data-id={questionDetails.Id}
+                variant="label-hidden">
+            </lightning-radio-group>
+        </template>
+
+        <!-- MULTIPLE SELECTION QUESTION-->
+        <template if:true={isMultipleSelectionQuestion}>
+            <label class="custom-question-label">
+                <template if:true={questionDetails.IsRequired__c}>
+                    <span class="custom-required-symbol slds-text-body_small slds-text-color_error">* </span>
+                </template>
+                {questionDetails.Name}
+            </label>
+            <lightning-checkbox-group
+                name="checkboxGroup"
+                label={questionDetails.Name}
+                options={selectionOptions}
+                value={multiSelectValue}
+                onchange={handleChangeMultipleSelection}
+                required={questionDetails.IsRequired__c}
+                data-id={questionDetails.Id}
+                variant="label-hidden">
+            </lightning-checkbox-group>
+        </template>
+
+        <!-- BOOLEAN QUESTION-->
+        <template if:true={isbooleanQuestion}>
+            <p class="slds-text-title custom-question-label">
+                <template if:true={questionDetails.IsRequired__c}>
+                    <span class="custom-required-symbol slds-text-body_small slds-text-color_error">* </span>
+                </template>
+                {questionDetails.Name}
+            </p>              
+            <br/>
+            <lightning-button variant={trueButtonVariant} label={booleanButtonLabelTrue} title={booleanButtonLabelTrue} icon-name={booleanButtonIconTrue} class="slds-m-right_x-small buttonBooleanTrue" data-value="true" data-choiceid={booleanButtonButtonTrueChoiceId} onclick={handleStateClick}></lightning-button>
+            <lightning-button variant={falseButtonVariant} label={booleanButtonLabelFalse} title={booleanButtonLabelFalse} icon-name={booleanButtonIconFalse} class="slds-m-right_x-small buttonBooleanFalse" data-value="false" data-choiceid={booleanButtonButtonFalseChoiceId} onclick={handleStateClick}></lightning-button>
+            <template if:false={isAnswerValid}>
+                <p class="slds-m-vertical_medium slds-text-body_small slds-text-color_error">Complete this field.</p>
+            </template>
+        </template>
+
+         <!-- STAR RATING QUESTION-->
+        <template if:true={isStarRatingQuestion}>
+            <div class="star-rating-container">
+                <p class="slds-text-title custom-question-label">
+                    <template if:true={questionDetails.IsRequired__c}>
+                        <span class="custom-required-symbol slds-text-body_small slds-text-color_error">* </span>
+                    </template>
+                    {questionDetails.Name}
+                </p>
+                <div class="rate">
+                    <template for:each={sortedStarRating} for:item="starRatingItem">
+                        <input key={starRatingItem.Name} type="radio" id={starRatingItem.starNumber} name="star" value={starRatingItem.Name} onchange={handleOnRatingChange} />
+                        <label key={starRatingItem.Name} for={starRatingItem.starNumber} title={starRatingItem.Name}></label>
+                    </template>
+                    <template if:false={isAnswerValid}>
+                        <p class="slds-m-vertical_small slds-text-body_small slds-text-color_error">Complete this field.</p>
+                    </template>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

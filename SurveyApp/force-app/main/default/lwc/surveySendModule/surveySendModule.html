@@ -1,0 +1,126 @@
+<!--
+ * @FileName            : surveySendModule.html
+ * @Description         : LWC Module of Survey App that manages the send configuration
+ * @Author              : Cleo Perez
+ * ==================================================================================================
+ * @History
+ * Version      Date                Author                                      Description
+ * 1.0          10/11/2022          Cleo Perez (cleperez@deloitte.com)          Initial Version
+-->
+
+
+<template>
+    <!-- Checks if Survey Version Status is Active  -->
+    <template lwc:if={isActive}>
+        <div class="slds-grid slds-wrap slds-grid_align-center">
+            <div class="slds-card slds-var-p-around_small slds-col slds-size_6-of-12 slds-var-m-bottom_large" style="position:relative;">
+
+                <!-- loading spinner-->
+                <template if:true={isLoading}>
+                    <div>              
+                        <lightning-spinner
+                            alternative-text="Loading..." variant="brand">
+                        </lightning-spinner>
+                    </div>  
+                </template>
+                
+                <!-- Lookup fields Loop -->
+                <template if:true={sendLookupFields} for:each={sendLookupFields} for:item="lookupField">
+                    <div class="slds-grid slds-gutters slds-form-element slds-var-p-vertical_small" key={lookupField.id}>
+                        <div class="slds-col slds-size_3-of-12">
+                            <label class="slds-form-element__label" for={lookupField.id}>
+                                <abbr class="slds-required" title="required">* </abbr>{lookupField.label}</label>
+                        </div>
+                        <div class="slds-col slds-size_9-of-12 slds-form-element__control">
+                            <c-survey-lookup 
+                                id={lookupField.id} 
+                                data-id={lookupField.id} 
+                                onsearch={handleSearch} 
+                                onselectionchange={handleSelection} 
+                                min-search-term-length="0" 
+                                placeholder={lookupField.placeholder} 
+                                required>
+                            </c-survey-lookup>
+                        </div>
+                    </div>
+                </template>
+                <div class="slds-grid slds-gutters slds-form-element slds-var-p-vertical_small">
+                    <div class="slds-col slds-size_3-of-12">
+                        <label class="slds-form-element__label">Add Custom Recipient?</label>
+                    </div>
+                    <div class="slds-col slds-size_9-of-12 slds-form-element__control">
+                        <lightning-input type="checkbox" label="Add Custom Recipient" name="Add Custom Recipient?" variant="label-hidden" onchange={handleAddCustomerRecipientVal}></lightning-input>
+                    </div>
+                </div>
+                <template if:true={addCustomerRecipientFlag}>
+                    <div class="slds-grid slds-gutters slds-form-element slds-var-p-vertical_small">
+                        <div class="slds-col slds-size_3-of-12">
+                            <label class="slds-form-element__label">Custom Recipient</label>
+                        </div>
+                        <div class="slds-col slds-size_9-of-12 slds-form-element__control">
+                            <lightning-input type="email" label="Custom Recipient" variant="label-hidden" onchange={handleCustomRecipientValue} multiple></lightning-input>
+                        </div>
+                    </div>
+                    
+                </template>
+
+
+                <!-- Email Template Preview -->
+                <template if:true={emailTemplateRecordId}>
+                    <div class="slds-grid slds-gutters slds-form-element slds-var-p-vertical_small">
+                        <div class="slds-col slds-size_3-of-12">
+                            <label class="slds-form-element__label" for="eml-template-subject">&emsp;Subject:</label>
+                        </div>
+                        <div class="slds-col slds-size_9-of-12 slds-form-element__control">
+                            <lightning-input 
+                                id="eml-template-subject" 
+                                data-id="eml-template-subject" 
+                                type="text" 
+                                placeholder="Subject" 
+                                value={lookupSelection.emltemplate.subject} 
+                                variant="label-hidden"
+                                disabled>
+                            </lightning-input>
+                        </div>
+                    </div>
+
+                    <div class="slds-var-m-vertical_small">
+                        <lightning-input-rich-text 
+                            value={lookupSelection.emltemplate.body} 
+                            disabled>
+                        </lightning-input-rich-text>
+                    </div>
+
+                </template>             
+
+                <!-- Send Button -->
+                <div class="slds-var-m-top_large slds-var-m-bottom_medium">
+                    <lightning-button 
+                        onclick={handleSend} 
+                        variant="brand" 
+                        label="Send" 
+                        title="Send" 
+                        icon-name="utility:send"
+                        class="slds-m-left_x-small">
+                    </lightning-button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Inactive Survey Version Illustration -->
+    <template lwc:else>
+        <div class="slds-grid slds-wrap slds-grid_align-center">
+            <div class="slds-card slds-var-p-around_small slds-col slds-size_1-of-3 slds-var-m-bottom_large">
+                <div class="slds-illustration slds-illustration_small">
+                    <svg class="slds-illustration__svg" aria-hidden="true">
+                        <use xlink:href="/_sfdc/surveyAssets/icons/symbols.svg#send_graphic"></use>
+                    </svg>
+                    <div class="slds-var-p-vertical_small slds-text-heading_medium">
+                        To send your survey to participants, activate it on the Build page.
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </template>
+</template>
