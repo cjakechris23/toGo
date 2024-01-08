@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TR_Pending_Business_Inputs__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Check that checkbox if this user story is blocked because pending Business Inputs</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Check this checkbox if this user story needs Business Inputs to be finalised. Add the list of items to be finalised in the text field &quot;Business Dependencies&quot;</inlineHelpText>
+    <label>Pending Business Inputs</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

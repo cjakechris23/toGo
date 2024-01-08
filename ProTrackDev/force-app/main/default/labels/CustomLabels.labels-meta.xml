@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Definitions_Functional_PDF</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Definitions Functional PDF</shortDescription>
+        <value>Also see the &apos;Definitions&apos; tab in Tracker</value>
+    </labels>
+    <labels>
+        <fullName>Definitions_Technical_PDF</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Definitions Technical PDF</shortDescription>
+        <value>See the Definitions Tab for general definitions.</value>
+    </labels>
+    <labels>
+        <fullName>Deliverable_Functional_PDF</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Deliverable Functional PDF</shortDescription>
+        <value>DEV-01</value>
+    </labels>
+    <labels>
+        <fullName>Purpose_Functional_PDF</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Purpose Functional PDF</shortDescription>
+        <value>&quot;The purpose of this document is to specify the details (acceptance criteria) for a specific set of requirements (user stories). The format is that of SCRUM used for Agile projects.&quot;</value>
+    </labels>
+    <labels>
+        <fullName>Purpose_Technical_PDF</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Purpose Technical PDF</shortDescription>
+        <value>&quot;The purpose of this document is to specify for a specific set of requirements (&apos;user stories&apos;), the design details. It&apos;s format is specific for Salesforce.com and Force.com development and configuration.</value>
+    </labels>
+    <labels>
+        <fullName>References_Functional_PDF</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>References Functional PDF</shortDescription>
+        <value>Also see the &apos;References&apos; tab in Tracker</value>
+    </labels>
+    <labels>
+        <fullName>References_Technical_PDF</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>References Technical PDF</shortDescription>
+        <value>Also see the &apos;References&apos; tab in Tracker</value>
+    </labels>
+    <labels>
+        <fullName>Scope_Functional_PDF</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Scope Functional PDF</shortDescription>
+        <value>This design document describes the Functional Information for following User Stories:</value>
+    </labels>
+    <labels>
+        <fullName>Scope_Technical_PDF</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Scope Technical PDF</shortDescription>
+        <value>This design document describes the design for following User Stories:</value>
+    </labels>
+    <labels>
+        <fullName>TR_Test_Execution_Message_01</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>TR Test Execution Message 01</shortDescription>
+        <value>Please fill overall test outcome and overall test comments to complete the test</value>
+    </labels>
+</CustomLabels>

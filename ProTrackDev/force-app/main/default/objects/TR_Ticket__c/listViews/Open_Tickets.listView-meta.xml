@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Open_Tickets</fullName>
+    <columns>NAME</columns>
+    <columns>TR_Problem__c</columns>
+    <columns>TR_Ticket_Developer__c</columns>
+    <columns>TR_Logged_by__c</columns>
+    <columns>TR_Tester__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>TR_Status__c</field>
+        <operation>equals</operation>
+        <value>Raised,In Analysis,Ready for Deployment,In Development,Ready for Testing</value>
+    </filters>
+    <label>All Open Tickets</label>
+</ListView>

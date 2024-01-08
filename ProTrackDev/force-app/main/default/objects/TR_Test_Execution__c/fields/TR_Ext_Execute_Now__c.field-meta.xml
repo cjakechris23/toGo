@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TR_Ext_Execute_Now__c</fullName>
+    <description>Execute Now (for Experience Cloud only)</description>
+    <externalId>false</externalId>
+    <formula>$Label.TR_exp_cloud_base_url&amp;&quot;/protrack/s/test-execute-outcome?c__recordId=&quot;&amp;Id</formula>
+    <label>Execute Now</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

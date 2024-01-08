@@ -1,0 +1,17 @@
+<template>
+    <div style="height: 900px;" class="slds-border_top slds-border_right slds-border_bottom slds-border_left">
+        <lightning-datatable
+            key-field='id'
+            data={data}
+            columns={columns}
+            default-sort-direction={defaultSortDirection}
+            sorted-direction={sortDirection}
+            sorted-by={sortedBy}
+            onsort={onHandleSort}
+            load-more-offset='24'
+            onloadmore={handleLoadMore}
+            enable-infinite-loading hide-checkbox-column
+            show-row-number-column>
+        </lightning-datatable>
+    </div>
+</template>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TR_Proposed_Release__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <inlineHelpText>This field is automatically populated when you fill in the proposed sprint</inlineHelpText>
+    <label>Proposed Release</label>
+    <referenceTo>TR_Release__c</referenceTo>
+    <relationshipLabel>Proposed User Stories</relationshipLabel>
+    <relationshipName>Proposed_User_Stories</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

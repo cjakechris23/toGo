@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TR_Proposed_Sprint__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <inlineHelpText>Following Release Planning this User Story can be proposed for a particular sprint. Stories can the be taken in or rejected from this sprint during the Sprint Planning process, as determined by the Product Owner</inlineHelpText>
+    <label>Proposed Sprint</label>
+    <referenceTo>TR_Sprint__c</referenceTo>
+    <relationshipLabel>Proposed User Stories</relationshipLabel>
+    <relationshipName>Proposed_Sprint</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

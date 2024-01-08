@@ -1,0 +1,3 @@
+({
+    //Here goe class details
+})

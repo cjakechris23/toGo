@@ -1,0 +1,203 @@
+<apex:page docType="html" title="Sequence Test Steps"
+    controller="TR_SequenceTestSteps_Controller"
+    showheader="true"  
+    standardStylesheets="false" showChat="false"
+    name="TKR_SequenceTestSteps">
+    
+    <head>
+        <style>
+             #SprintLink{
+                padding-top: 10px;
+                padding-bottom: 20px;
+            }
+            
+            #response{
+                padding: 10px;
+                background-color: #9F9;
+                border: 2px solid #396;
+                margin-bottom: 20px;
+            }
+            #testscriptlist {
+                border: 1px solid #DFDFDF;
+                background-color: #F9F9F9;
+                width: 100%;
+                -moz-border-radius: 3px;
+                -webkit-border-radius: 3px;
+                border-radius: 3px;
+                font-family: Arial,Helvetica,Verdana,sans-serif;
+                color: #333;
+            }
+                        
+            #testscriptlist td {
+                border-top-color: white;
+                border-bottom: 1px solid #707070;
+                color: #555;
+                font-size: 10pt;
+                padding: 10px 7px 10px;
+                vertical-align: top;
+                min-width:100px;        
+            }
+            .headers{
+                background-color: #4E9CAF;              
+            }
+            
+            .headers tr th {
+                border-bottom: 1px solid #707070;
+                padding-top:20px;
+                text-align:left;
+                vertical-align:text-top;         
+            }
+            .button {
+            position:relative;
+            align: right;
+            background: #009DDC;
+            background-color: #009DDC;
+            -moz-border-radius:0px;
+            -webkit-border-radius:0px;
+            border-radius:3px;
+            border:0px solid #268a16;
+            display:inline-block;
+            color: #FFFFFF;
+            font-family:arial;
+            font-size:14px;
+            font-weight:bold;
+            padding:6px 24px;
+            text-decoration:none;
+        }
+        .button:hover {
+            color: #FFFFFF;
+            background: #8de342;
+            background-color:#5cb811;
+            text-decoration: none;
+        }
+        .button:active {
+            position:relative;
+            top:1px;
+        }
+        .filterstext{font-family:arial;font-size:14px;font-weight:bold;
+                }
+                
+         .color-green  {background:#8dc100;}
+            .color-orange {background:#F28705;}
+            .color-yellow {background:#f2bc00;}
+            .color-pink   {background:#F28280;}
+            .color-blue   {background:#52AED9;}
+            .color-white  {background:#FFFFFF;}
+            .color-sky    {background:#54D500;}
+            .color-lgrey  {background:#F9F9F9;}
+            .color-grey   {background:#DFDFDF;}
+            .ColumnHeader {font-family:Arial;font-size:1.2em;}
+            BODY {background-attachment: fixed;}
+        </style>
+        <style type="text/css">
+        .trhover{
+                cursor:move;
+                font-weight:bold;
+            background: #8de342;
+            background-color:#5cb811;
+                }
+            table.tftable {font-family:arial;font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #a9a9a9;border-collapse: collapse;border-radius:3px}
+            table.tftable th {font-family:arial;font-size:14px;font-weight:bold;color:#ffffff;background-color:#009DDC;border-width: 1px;padding: 8px;border-style: solid;border-color: #a9a9a9;text-align:center;}           
+            table.tftable tr {background-color:#F9F9F9;}
+            table.tftable td {font-size:12px;border-width: 0px;padding: 8px;border-style: solid;border-color: #ffffff;}
+        </style>
+        <apex:includeScript value="{!URLFOR($Resource.Planomatic, 'js/jquery-1.3.2.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.Planomatic, 'js/jquery-ui-1.7.2.custom.min.js')}" />
+        <script>
+            // HOTFIX: We can't upgrade to jQuery UI 1.8.6 (yet)
+            // This hotfix makes older versions of jQuery UI drag-and-drop work in IE9
+            (function($){var a=$.ui.mouse.prototype._mouseMove;$.ui.mouse.prototype._mouseMove=function(b){if($.browser.msie&&document.documentMode>=9){b.button=1};a.apply(this,[b]);}}(jQuery));
+        </script>
+        <script type="text/javascript">
+            $j = jQuery.noConflict();
+            
+            $j(document).ready(function() {
+
+                        /*  @function       slideout
+                         *  @description    slideout function when the page has finished sorting
+                         */
+                        function slideout() {
+                            setTimeout(function() {
+                                $j("#response").slideUp("slow", function() {
+                                });
+                            }, 2000);
+                        }
+                        /*  @function       slideout
+                         *  @description    slideout function when the page has finished sorting
+                         */
+                        $j("#response").hide();
+
+                        /*  @function       sortable
+                         *  @description    Sort the List
+                         */
+                         $j(function() {
+                            $j("#testscriptlist tbody")
+                                .sortable({
+                                            opacity : 0.8,
+                                            cursor : 'move',
+                                            stop : function(event,ui){
+                                                var sortedIDs = $j(this).sortable("toArray");
+                                                var UpdatedTSId = ui.item[0].id;
+                                                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.TR_SequenceTestSteps_Controller.updateSortOrder}',
+                                                  sortedIDs,
+                                                  UpdatedTSId,
+                                                  function(result,event) {
+                                                      if (event.status) {
+                                                        console.log(result);
+                                                        if(result != ''){
+                                                            $j("#"+UpdatedTSId.substr(0, UpdatedTSId.indexOf('_'))+"_LastUpdatedBy").html(result);
+                                                        }else{
+                                                            $j("#"+UpdatedTSId.substr(0, UpdatedTSId.indexOf('_'))+"_LastUpdatedBy").html('');
+                                                        }
+                                                         
+                                                      } else if (event.type === 'exception') {
+                                                          $j("#response").html(event.message);
+                                                          $j("#response").slideDown('slow');
+                                                          slideout();
+                                                      } else {
+                                                          $j("#response").html(event.message);
+                                                          $j("#response").slideDown('slow');
+                                                          slideout();
+                                                      }
+                                                  },{escape : true});                                    
+                                            }
+                                });
+                        });
+            
+
+            });
+        </script>
+    </head>
+    <body>
+    <!-- div class="color-blue" id="toptitle1" style="width:100%;height:40px;color:white;line-height: 40px;text-align:center;vertical-align:middle;font-size:22px;font-family:arial;">
+        <strong>Test Script Sequence</strong>
+        </div -->
+        <div id="opOutterPanel">
+            <div id="SprintLink">
+                <a class="button" href="/{!scriptID}">Save and Close</a>
+            </div>
+           <table id="testscriptlist" class="tftable" border="1">
+                <thead>
+                    <tr>
+                        <th style="width:20px">Test Step No</th>
+                        <th style="width:10px">Sequence</th>
+                        <th>Action</th>
+                        <th style="width:20px">Last Updated By</th>
+                    </tr>
+                </thead>
+                 <tbody>
+                    <apex:repeat value="{!TestSteps}" var="TestStep">
+                      <tr id="{!TestStep.Id}_{!TestStep.TR_Ranked_Sequence__c}" onmouseover="this.className='trhover';" onmouseout="this.className='tftable';">
+                            <td> <a href="/{!TestStep.Id}" target="_blank">{!TestStep.Name} </a></td> 
+                            <td> {!FLOOR(TestStep.TR_Ranked_Sequence__c)}</td>
+                            <td> {!TestStep.TR_Action__c} </td>
+                            <td id= "{!TestStep.Id}_LastUpdatedBy"> {!TestStep.TR_Sequence_Last_Updated_By__r.Name}</td>
+                      </tr> 
+                    </apex:repeat> 
+      
+                </tbody>
+            </table>
+                                    
+        </div>
+    </body>
+</apex:page>

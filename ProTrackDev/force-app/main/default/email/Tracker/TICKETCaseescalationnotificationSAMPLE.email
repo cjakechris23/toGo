@@ -1,0 +1,10 @@
+*** NEW TICKET ALERT ***  
+
+The following case has been created:  
+User:  {!TR_Ticket__c.CreatedBy}
+Problem:  {!TR_Ticket__c.TR_Problem__c}
+
+{!TR_Ticket__c.TR_Problem_Description__c}
+
+
+Click on the link to access the case:  {!TR_Ticket__c.Link}

@@ -1,0 +1,5 @@
+**/jsconfig.json
+**/.eslintrc.json
+
+#When creating a new scratch org, we shold UNCOMMENT thhe below lines because SFDX SOURCE is still not compatible with the below components
+*AMS Process*

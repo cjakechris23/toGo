@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TR_So_that__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Please enter the business value of this User Story. This helps the Developers and Business Analysts understand the important essence of what the user needs to ultimately achieve.</inlineHelpText>
+    <label>So that</label>
+    <required>true</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

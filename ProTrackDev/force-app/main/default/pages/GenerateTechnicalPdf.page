@@ -1,0 +1,388 @@
+<apex:page
+  standardController="TR_Release__c"
+  extensions="GeneratePdfTechnicalController"
+  renderAs="pdf"
+>
+  <apex:stylesheet value="{!$Resource.cssPdf}" />
+  <!-- Table Cover -->
+  <apex:image url="{!$Resource.deloitte_logo}" width="200" />
+  <table
+    style="width: 100%; page-break-after: always; border-collapse: collapse"
+    border="1"
+  >
+    <tr style="height: 60px">
+      <td style="font-size: 20px; text-align: center" colspan="3">
+        <b
+          >{!techDesignList[0].Design_User_Story_Associations__r[0].TR_User_Story__r.TR_Project__r.Name}</b
+        >
+      </td>
+    </tr>
+    <tr style="height: 50px">
+      <td
+        style="font-size: 15px; text-align: center; border-top: none"
+        colspan="3"
+      >
+        <b>TECHNICAL DESIGN DOCUMENT</b>
+      </td>
+    </tr>
+    <tr style="height: 40px">
+      <td
+        style="font-size: 15px; text-align: center; border-bottom: none"
+        colspan="3"
+      >
+        <b
+          >RELEASE
+          :{!techDesignList[0].Design_User_Story_Associations__r[0].TR_User_Story__r.TR_Allocated_Release__r.Name}
+        </b>
+      </td>
+    </tr>
+    <tr style="height: 40px">
+      <td
+        style="font-size: 15px; text-align: center; border-top: none"
+        colspan="3"
+      >
+        <b
+          >VERSION:&nbsp;
+          <apex:outputText value="{!$CurrentPage.parameters.version}" />
+        </b>
+      </td>
+    </tr>
+    <tr style="height: 25px"></tr>
+    <tr style="height: 30px">
+      <td class="tableContent">Role</td>
+      <td class="tableContent">Name and Title</td>
+      <td class="tableContent">Signature and Date</td>
+    </tr>
+    <tr style="height: 30px">
+      <td colspan="3" class="tableContent">Author:</td>
+    </tr>
+    <tr style="height: 30px">
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr style="height: 30px">
+      <td colspan="3" class="tableContent">Review and Approval:</td>
+    </tr>
+    <tr style="height: 30px">
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr style="height: 30px">
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr style="height: 30px">
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr style="height: 30px">
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr style="height: 30px">
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr style="height: 30px">
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+  <!-- Table of Contents -->
+  <div style="margin-top: 50px; page-break-after: always">
+    <span class="usHeader1">TABLE OF CONTENTS</span>
+    <p class="usHeader2">1. PURPOSE</p>
+    <p class="usHeader2">2. SCOPE</p>
+    <p class="usHeader2">3. DEFINITIONS</p>
+    <p class="usHeader2">4. REFERENCES</p>
+    <p class="usHeader2">5. DESIGN DETAILS</p>
+    <apex:repeat value="{!techDesignList}" var="techDesign">
+      Design Reference -&nbsp;
+      <apex:outputField value="{!techDesign.Name}" />
+      <br />
+    </apex:repeat>
+    <p class="usHeader2">6. REVISION HISTORY</p>
+  </div>
+
+  <!-- PURPOSE SECTION -->
+  <div style="margin-top: 50px; page-break-after: always">
+    <span class="usHeader1">1. PURPOSE</span>
+    <p>
+      <apex:outputText value="{!$Label.Purpose_Technical_PDF}" />
+    </p>
+  </div>
+  <!-- SCOPE SECTION -->
+  <div style="margin-top: 50px; page-break-after: always">
+    <span class="usHeader1">2. SCOPE</span>
+    <p>
+      <apex:outputText value="{!$Label.Scope_Technical_PDF}" />
+    </p>
+    <table style="width: 100%; border-collapse: collapse" border="1">
+      <tr>
+        <th class="tableContent">User Story</th>
+        <th class="tableContent">Sprint</th>
+        <th class="tableContent">Epic Name</th>
+      </tr>
+      <apex:repeat value="{!epicStoryWrapperList}" var="epicStoryWrapper">
+        <apex:repeat value="{!epicStoryWrapper.userStories}" var="userStory">
+          <tr>
+            <td class="tableContent">
+              <apex:outputField value="{!userStory.Name}" />
+            </td>
+            <td class="tableContent">
+              <apex:outputField
+                value="{!userStory.TR_Allocated_Sprint__r.Name}"
+              />
+            </td>
+            <td class="tableContent">
+              <apex:outputText value="{!epicStoryWrapper.epicName}" />
+            </td>
+          </tr>
+        </apex:repeat>
+      </apex:repeat>
+    </table>
+  </div>
+  <!-- DEFINITIONS SECTION -->
+  <div style="margin-top: 50px; page-break-after: always">
+    <span class="usHeader1">3. DEFINITIONS</span>
+    <p>
+      <apex:outputText value="{!$Label.Definitions_Technical_PDF}" />
+    </p>
+  </div>
+  <!-- REFERENCES SECTION -->
+  <div style="margin-top: 50px; page-break-after: always">
+    <span class="usHeader1">4. REFERENCES</span>
+    <p>
+      <apex:outputText value="{!$Label.References_Technical_PDF}" />
+    </p>
+  </div>
+  <!-- DESIGN DETAILS SECTION -->
+  <div style="margin-top: 50px; page-break-after: always">
+    <span class="usHeader1">5. DESIGN DETAILS</span>
+
+    <center>
+      <h1>Technical Design List</h1>
+    </center>
+
+    <apex:repeat value="{!techDesignList}" var="techDesign">
+      <span class="usHeader1">Technical Design Details :</span>
+      <br />
+      <b>Related User Stories</b>
+      <div style="margin-top: 50px; page-break-after: always">
+        <apex:repeat
+          value="{!techDesign.Design_User_Story_Associations__r}"
+          var="designStoryAssociation"
+        >
+          <apex:outputText
+            value="{!designStoryAssociation.TR_User_Story__r.Name}"
+          />
+          <br />
+        </apex:repeat>
+        <br />
+        <table style="width: 100%">
+          <tr>
+            <td class="usHeader2">Design Ref</td>
+            <td>
+              :&nbsp;
+              <apex:outputField value="{!techDesign.Name}" />
+            </td>
+          </tr>
+          <tr>
+            <td class="usHeader2">Design Name</td>
+            <td>
+              :&nbsp;
+              <apex:outputField value="{!techDesign.TR_Design_Name__c}" />
+            </td>
+          </tr>
+          <tr>
+            <td class="usHeader2">Owner ID</td>
+            <td>
+              :&nbsp;
+              <apex:outputField value="{!techDesign.OwnerId}" />
+            </td>
+          </tr>
+          <tr>
+            <td class="usHeader2">Design Type</td>
+            <td>
+              :&nbsp;
+              <apex:outputField value="{!techDesign.TR_Design_Type__c}" />
+            </td>
+          </tr>
+          <tr>
+            <td class="usHeader2">Complexity</td>
+            <td>
+              :&nbsp;
+              <apex:outputField value="{!techDesign.TR_Complexity__c}" />
+            </td>
+          </tr>
+        </table>
+        <br />
+        <span class="usHeader1">Overview :</span>
+        <br />
+        <table>
+          <tr>
+            <td class="usHeader2">Overview</td>
+          </tr>
+          <tr>
+            <td>
+              <apex:outputField value="{!techDesign.TR_Overview__c}" />
+            </td>
+          </tr>
+          <tr>
+            <td class="usHeader2">Data Model</td>
+          </tr>
+          <tr>
+            <td>
+              <apex:outputField value="{!techDesign.TR_Data_Model__c}" />
+            </td>
+          </tr>
+          <tr>
+            <td class="usHeader2">User Interface (UI)/Lightning</td>
+          </tr>
+          <tr>
+            <td>
+              <apex:outputField value="{!techDesign.TR_User_Interface_UI__c}" />
+            </td>
+          </tr>
+        </table>
+        <span class="usHeader1">Components :</span>
+        <br />
+        <table>
+          <tr>
+            <td class="usHeader2">Objects</td>
+          </tr>
+          <tr>
+            <td>
+              <apex:outputField value="{!techDesign.TR_Objects__c}" />
+            </td>
+          </tr>
+          <br />
+          <tr>
+            <td class="usHeader2">Fields</td>
+          </tr>
+          <tr>
+            <td>
+              <apex:outputField value="{!techDesign.TR_Fields__c}" />
+            </td>
+          </tr>
+          <br />
+          <tr>
+            <td class="usHeader2">Page Layouts</td>
+          </tr>
+          <tr>
+            <td>
+              <apex:outputField value="{!techDesign.TR_Page_Layouts__c}" />
+            </td>
+          </tr>
+          <br />
+          <tr>
+            <td class="usHeader2">Lightning Pages</td>
+          </tr>
+          <tr>
+            <td>
+              <apex:outputField value="{!techDesign.TR_Lightning_Page__c}" />
+            </td>
+          </tr>
+          <br />
+          <tr>
+            <td class="usHeader2">Apex Classes</td>
+          </tr>
+          <tr>
+            <td>
+              <apex:outputField value="{!techDesign.TR_Apex_Classes__c}" />
+            </td>
+          </tr>
+          <br />
+          <tr>
+            <td class="usHeader2">Visualforce Pages</td>
+          </tr>
+          <tr>
+            <td>
+              <apex:outputField value="{!techDesign.TR_Visualforce_Pages__c}" />
+            </td>
+          </tr>
+          <br />
+          <tr>
+            <td class="usHeader2">Apex Triggers</td>
+          </tr>
+          <tr>
+            <td>
+              <apex:outputField value="{!techDesign.TR_Apex_Trigger__c}" />
+            </td>
+          </tr>
+          <br />
+          <tr>
+            <td class="usHeader2">Flows</td>
+          </tr>
+          <tr>
+            <td>
+              <apex:outputField value="{!techDesign.TR_Flows__c}" />
+            </td>
+          </tr>
+          <br />
+          <tr>
+            <td class="usHeader2">Aura Components</td>
+          </tr>
+          <tr>
+            <td>
+              <apex:outputField value="{!techDesign.TR_Aura_Component__c}" />
+            </td>
+          </tr>
+          <br />
+          <tr>
+            <td class="usHeader2">Lightning Web Component</td>
+          </tr>
+          <tr>
+            <td>
+              <apex:outputField
+                value="{!techDesign.TR_Lightning_Web_Component__c}"
+              />
+            </td>
+          </tr>
+          <br />
+          <tr>
+            <td class="usHeader2">Other Components</td>
+          </tr>
+          <tr>
+            <td>
+              <apex:outputField value="{!techDesign.TR_Other_Components__c}" />
+            </td>
+          </tr>
+        </table>
+      </div>
+    </apex:repeat>
+  </div>
+
+  <!-- REVISION HISTORY SECTION -->
+  <div style="margin-top: 50px">
+    <span class="usHeader1">6. REVISIONS HISTORY</span>
+    <table style="width: 100%; border-collapse: collapse" border="1">
+      <tr>
+        <th class="tableContent">Version</th>
+        <th class="tableContent">Date</th>
+        <th class="tableContent">Author</th>
+        <th class="tableContent">Change Desctiption</th>
+      </tr>
+      <tr>
+        <td class="tableContent">
+          <apex:outputText value="{!$CurrentPage.parameters.version}" />
+        </td>
+        <td class="tableContent">
+          {!DAY(Today())} {!CASE(MONTH(Today()), 1, 'January', 2, 'February', 3,
+          'March', 4, 'April', 5, 'May', 6, 'June', 7, 'July', 8, 'August', 9,
+          'September', 10, 'October', 11, 'November', 12, 'December',
+          'Unknown')} {!YEAR(Today())}
+        </td>
+        <td class="tableContent">{!$User.FirstName} {!$User.LastName}</td>
+        <td class="tableContent">First draft of Technical Document</td>
+      </tr>
+    </table>
+  </div>
+</apex:page>

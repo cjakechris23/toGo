@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TR_User_Interface_UI__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>User Interface components and considerations
+For example; Lightning components and associated configuration/customisation details</inlineHelpText>
+    <label>User Interface (UI)/Lightning</label>
+    <length>32768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

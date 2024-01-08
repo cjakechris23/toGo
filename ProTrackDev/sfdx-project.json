@@ -1,0 +1,19 @@
+{
+    "packageDirectories": [
+        {
+            "path": "force-app",
+            "default": true,
+            "package": "sf-protrack",
+            "versionName": "ver 0.1",
+            "versionNumber": "0.1.0.NEXT"
+        }  
+    ],
+    "namespace": "",
+    "sfdcLoginUrl": "https://login.salesforce.com",
+    "sourceApiVersion": "52.0",
+    "packageAliases": {
+        "sf-protrack": "0Ho1Q000000GmfESAS",
+        "sf-protrack@0.1.0-1": "04t1Q000001E6EBQA0",
+        "sf-protrack@0.1.0-3": "04t1Q000001E6EVQA0"
+    }
+}

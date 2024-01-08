@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TR_PreventFromEditStepsUntilApproved</fullName>
+    <active>false</active>
+    <errorConditionFormula>ISPICKVAL( TR_Test_Script__r.TR_Approval_Status__c  , &apos;Pending Approval&apos;)</errorConditionFormula>
+    <errorMessage>You cannot Create / Edit a Test Script Step if the Test Script is Pending Approval.</errorMessage>
+</ValidationRule>

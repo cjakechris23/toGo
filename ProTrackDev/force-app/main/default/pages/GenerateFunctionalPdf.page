@@ -1,0 +1,296 @@
+<apex:page
+  standardController="TR_Release__c"
+  extensions="GeneratePdfFunctionalController"
+  renderAs="pdf"
+>
+  <apex:stylesheet value="{!$Resource.cssPdf}" />
+  <!-- Table Cover -->
+  <apex:image url="{!$Resource.deloitte_logo}" width="200" />
+  <table
+    style="width: 100%; page-break-after: always; border-collapse: collapse"
+    border="1"
+  >
+    <tr style="height: 60px">
+      <td style="font-size: 20px; text-align: center" colspan="3">
+        <b>{!epicStoryWrapperList[0].userStories[0].TR_Project__r.Name}</b>
+      </td>
+    </tr>
+    <tr style="height: 50px">
+      <td
+        style="font-size: 15px; text-align: center; border-top: none"
+        colspan="3"
+      >
+        <b>FUNCTIONAL DESIGN DOCUMENT</b>
+      </td>
+    </tr>
+    <tr style="height: 40px">
+      <td
+        style="font-size: 15px; text-align: center; border-bottom: none"
+        colspan="3"
+      >
+        <b
+          >RELEASE :
+          {!epicStoryWrapperList[0].userStories[0].TR_Allocated_Release__r.Name}
+        </b>
+      </td>
+    </tr>
+    <tr style="height: 40px">
+      <td
+        style="font-size: 15px; text-align: center; border-top: none"
+        colspan="3"
+      >
+        <b
+          >VERSION:&nbsp;
+          <apex:outputText value="{!$CurrentPage.parameters.version}" />
+        </b>
+      </td>
+    </tr>
+    <tr style="height: 25px"></tr>
+    <tr style="height: 30px">
+      <td class="tableContent">Role</td>
+      <td class="tableContent">Name and Title</td>
+      <td class="tableContent">Signature and Date</td>
+    </tr>
+    <tr style="height: 30px">
+      <td colspan="3" class="tableContent">Author:</td>
+    </tr>
+    <tr style="height: 30px">
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr style="height: 30px">
+      <td colspan="3" class="tableContent">Review and Approval:</td>
+    </tr>
+    <tr style="height: 30px">
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr style="height: 30px">
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr style="height: 30px">
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr style="height: 30px">
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr style="height: 30px">
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr style="height: 30px">
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+
+  <!-- Table of Contents -->
+  <div style="margin-top: 50px; page-break-after: always">
+    <span class="usHeader1">TABLE OF CONTENTS</span>
+    <p class="usHeader2">1. PURPOSE</p>
+    <p class="usHeader2">2. SCOPE</p>
+    <p class="usHeader2">3. DEFINITIONS</p>
+    <p class="usHeader2">4. REFERENCES</p>
+    <p class="usHeader2">5. USER STORY OVERVIEW</p>
+    <apex:repeat value="{!epicStoryWrapperList}" var="epicStoryWrapper">
+      Functional Area -&nbsp;
+      <apex:outputText value="{!epicStoryWrapper.epicName}" />
+      <br />
+    </apex:repeat>
+    <p class="usHeader2">6. REVISION HISTORY</p>
+  </div>
+
+  <!-- PURPOSE SECTION -->
+  <div style="margin-top: 50px; page-break-after: always">
+    <span class="usHeader1">1. PURPOSE</span>
+    <p>
+      <apex:outputText value="{!$Label.Purpose_Functional_PDF}" />
+    </p>
+  </div>
+  <!-- SCOPE SECTION -->
+  <div style="margin-top: 50px; page-break-after: always">
+    <span class="usHeader1">2. SCOPE</span>
+    <p>
+      <apex:outputText value="{!$Label.Scope_Functional_PDF}" />
+    </p>
+    <table style="width: 100%; border-collapse: collapse" border="1">
+      <tr>
+        <th class="tableContent">User Story</th>
+        <th class="tableContent">Sprint</th>
+        <th class="tableContent">Epic Name</th>
+      </tr>
+      <apex:repeat value="{!epicStoryWrapperList}" var="epicStoryWrapper">
+        <apex:repeat value="{!epicStoryWrapper.userStories}" var="userStory">
+          <tr>
+            <td class="tableContent">
+              <apex:outputField value="{!userStory.Name}" />
+            </td>
+            <td class="tableContent">
+              <apex:outputField
+                value="{!userStory.TR_Allocated_Sprint__r.Name}"
+              />
+            </td>
+            <td class="tableContent">
+              <apex:outputText value="{!epicStoryWrapper.epicName}" />
+            </td>
+          </tr>
+        </apex:repeat>
+      </apex:repeat>
+    </table>
+  </div>
+  <!-- DEFINITIONS SECTION -->
+  <div style="margin-top: 50px; page-break-after: always">
+    <span class="usHeader1">3. DEFINITIONS</span>
+    <p>
+      <apex:outputText value="{!$Label.Definitions_Functional_PDF}" />
+    </p>
+  </div>
+  <!-- REFERENCES SECTION -->
+  <div style="margin-top: 50px; page-break-after: always">
+    <span class="usHeader1">4. REFERENCES</span>
+    <p>
+      <apex:outputText value="{!$Label.References_Functional_PDF}" />
+    </p>
+  </div>
+  <!-- USER STORY OVERVIEW SECTION -->
+  <div style="margin-top: 50px; page-break-after: always">
+    <span class="usHeader1">5. USER STORY OVERVIEW</span>
+    <p>
+      <apex:outputText value="{!$Label.Purpose_Functional_PDF}" />
+    </p>
+    <!-- User Story Content -->
+    <div>
+      <center>
+        <h1>User Stories List</h1>
+      </center>
+      <apex:repeat value="{!epicStoryWrapperList}" var="epicStoryWrapper">
+        <u>
+          <span class="usHeader1"
+            >Functional Area - {!epicStoryWrapper.epicName}</span
+          >
+        </u>
+        <br />
+        <apex:repeat value="{!epicStoryWrapper.userStories}" var="userStory">
+          <div style="margin-top: 50px; page-break-after: always">
+            <span class="usHeader1">User Story Details :</span>
+            <br />
+            <apex:outputField
+              styleclass="usHeader2"
+              value="{!userStory.name}"
+            />
+            : As a&nbsp; <apex:outputField value="{!userStory.TR_As_a__c}" /> I
+            want to&nbsp;
+            <apex:outputField value="{!userStory.TR_I_want_to__c}" /> So
+            that&nbsp;
+            <apex:outputField value="{!userStory.TR_So_that__c}" />
+            <br />
+            <br />
+            <span class="usHeader2">User Story Definition :</span>
+            <br />
+            <table>
+              <tr>
+                <td class="usHeader2">Story Title</td>
+                <td>
+                  :&nbsp;
+                  <apex:outputField value="{!userStory.TR_Story_Title__c}" />
+                </td>
+              </tr>
+              <tr>
+                <td class="usHeader2">Project</td>
+                <td>
+                  :&nbsp;
+                  <apex:outputField value="{!userStory.TR_Project__r.Name}" />
+                </td>
+              </tr>
+              <tr>
+                <td class="usHeader2">Epic Name</td>
+                <td>
+                  :&nbsp;
+                  <apex:outputText value="{!epicStoryWrapper.epicName}" />
+                </td>
+              </tr>
+              <tr>
+                <td class="usHeader2">Status</td>
+                <td>
+                  :&nbsp;
+                  <apex:outputField value="{!userStory.TR_Status__c}" />
+                </td>
+              </tr>
+              <tr>
+                <td class="usHeader2">Priority</td>
+                <td>
+                  :&nbsp;
+                  <apex:outputField value="{!userStory.TR_Priority__c}" />
+                </td>
+              </tr>
+              <tr>
+                <td class="usHeader2">Approval Status</td>
+                <td>
+                  :&nbsp;
+                  <apex:outputField
+                    value="{!userStory.TR_Approval_Status__c}"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td class="usHeader2">Cancellation Reason</td>
+                <td>
+                  :&nbsp;
+                  <apex:outputField
+                    value="{!userStory.TR_Cancellation_Reason__c}"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td class="usHeader2">External ID</td>
+                <td>
+                  :&nbsp;
+                  <apex:outputField value="{!userStory.TR_External_ID__c}" />
+                </td>
+              </tr>
+            </table>
+            <br />
+            <span class="usHeader2">Acceptance Criteria :</span>
+            <br />
+            <apex:outputField value="{!userStory.TR_Acceptance_Criteria__c}" />
+          </div>
+        </apex:repeat>
+      </apex:repeat>
+    </div>
+  </div>
+  <!-- REVISION HISTORY SECTION -->
+  <div style="margin-top: 50px">
+    <span class="usHeader1">6. REVISIONS HISTORY</span>
+    <table style="width: 100%; border-collapse: collapse" border="1">
+      <tr>
+        <th class="tableContent">Version</th>
+        <th class="tableContent">Date</th>
+        <th class="tableContent">Author</th>
+        <th class="tableContent">Change Desctiption</th>
+      </tr>
+      <tr>
+        <td class="tableContent">
+          <apex:outputText value="{!$CurrentPage.parameters.version}" />
+        </td>
+        <td class="tableContent">
+          {!DAY(Today())} {!CASE(MONTH(Today()), 1, 'January', 2, 'February', 3,
+          'March', 4, 'April', 5, 'May', 6, 'June', 7, 'July', 8, 'August', 9,
+          'September', 10, 'October', 11, 'November', 12, 'December',
+          'Unknown')} {!YEAR(Today())}
+        </td>
+        <td class="tableContent">{!$User.FirstName} {!$User.LastName}</td>
+        <td class="tableContent">First draft of Technical Document</td>
+      </tr>
+    </table>
+  </div>
+</apex:page>

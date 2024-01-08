@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TR_Cancellation_Reason_Check</fullName>
+    <active>true</active>
+    <description>Checks that the cancellation reason is populate if the story is set to cancelled</description>
+    <errorConditionFormula>AND( ISPICKVAL(  TR_Status__c    , &quot;Cancelled&quot;) , ISBLANK(  TR_Cancellation_Reason__c ) )</errorConditionFormula>
+    <errorMessage>You must enter a cancellation reason if you are cancelling this story</errorMessage>
+</ValidationRule>

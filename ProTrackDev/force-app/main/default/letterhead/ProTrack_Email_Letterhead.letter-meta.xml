@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Letterhead xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <backgroundColor>#f6f4f3</backgroundColor>
+    <bodyColor>#FFFFFF</bodyColor>
+    <bottomLine>
+        <color>#d62839</color>
+        <height>3</height>
+    </bottomLine>
+    <footer>
+        <backgroundColor>#FFFFFF</backgroundColor>
+        <height>50</height>
+        <horizontalAlignment>Center</horizontalAlignment>
+        <logo>Experiences_Shared_Document_Folder/Email_Bottom_Logo1.png</logo>
+        <verticalAlignment>Middle</verticalAlignment>
+    </footer>
+    <header>
+        <backgroundColor>#FFFFFF</backgroundColor>
+        <height>100</height>
+        <horizontalAlignment>Center</horizontalAlignment>
+        <logo>Experiences_Shared_Document_Folder/Email_Top_Logo1.png</logo>
+        <verticalAlignment>Middle</verticalAlignment>
+    </header>
+    <middleLine>
+        <color>#d62839</color>
+        <height>3</height>
+    </middleLine>
+    <name>ProTrack Email Letterhead</name>
+    <topLine>
+        <color>#d62839</color>
+        <height>3</height>
+    </topLine>
+</Letterhead>

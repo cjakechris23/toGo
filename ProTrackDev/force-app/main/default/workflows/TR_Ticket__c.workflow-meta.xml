@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Ticket_Developer_Assignment_Notification</fullName>
+        <description>Ticket Developer Assignment Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <field>TR_Ticket_Developer__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Tracker/Ticket_Developer_Assignment</template>
+    </alerts>
+    <alerts>
+        <fullName>Ticket_has_now_been_resolved</fullName>
+        <description>Ticket has now been resolved</description>
+        <protected>false</protected>
+        <recipients>
+            <field>TR_Logged_by__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>TR_Ticket_Developer__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Tracker/TICKETCaseresolutionnotificationSAMPLE</template>
+    </alerts>
+    <rules>
+        <fullName>New Ticket has been Resolved</fullName>
+        <actions>
+            <name>Ticket_has_now_been_resolved</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>TR_Ticket__c.TR_Status__c</field>
+            <operation>equals</operation>
+            <value>Ready for Testing</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Ticket Developer Assignment Rule</fullName>
+        <actions>
+            <name>Ticket_Developer_Assignment_Notification</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>TR_Ticket__c.TR_Ticket_Developer__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Ticket Developer Assignment Rule</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

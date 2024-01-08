@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sequence_Test_Steps</fullName>
+    <availability>online</availability>
+    <description>Tracker: Reorder Test Script Steps</description>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <height>600</height>
+    <linkType>url</linkType>
+    <masterLabel>Sequence Test Steps</masterLabel>
+    <openType>sidebar</openType>
+    <protected>false</protected>
+    <url>/apex/Sequence_Test_Steps?TKR_Test_Templates={!TR_Test_Script__c.Id}</url>
+</WebLink>

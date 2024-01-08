@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>Analysis Request</fullName>
+        <default>false</default>
+        <label>Analysis Request</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Bug</fullName>
+        <default>false</default>
+        <label>Bug</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Configuration Change Request</fullName>
+        <default>false</default>
+        <label>Configuration Change Request</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Data Loader Investigation</fullName>
+        <default>false</default>
+        <label>Data Loader Investigation</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Data Patch</fullName>
+        <default>false</default>
+        <label>Data Patch</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Deployment Validation</fullName>
+        <default>false</default>
+        <label>Deployment Validation</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Duplicate</fullName>
+        <default>false</default>
+        <label>Duplicate</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Enhancement</fullName>
+        <default>false</default>
+        <label>Enhancement</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Minor Code Change Request</fullName>
+        <default>false</default>
+        <label>Minor Code Change Request</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Queries</fullName>
+        <default>false</default>
+        <label>Queries</label>
+    </standardValue>
+    <standardValue>
+        <fullName>UAT Refresh</fullName>
+        <default>false</default>
+        <label>UAT Refresh</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Warranty</fullName>
+        <default>false</default>
+        <label>Warranty</label>
+    </standardValue>
+</StandardValueSet>

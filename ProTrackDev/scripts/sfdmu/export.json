@@ -1,0 +1,29 @@
+{
+    "objects": [
+        {
+            "query": "select Name, TR_End_Date__c, TR_Program__c, TR_Project_Description__c, TR_Start_Date__c, TR_Status__c from TR_Project__c",
+            "operation": "Upsert",
+            "externalId": "Name"
+        },
+        {
+            "query": "select Name, TR_Description__c, TR_End_Date__c, TR_Project__c, TR_Start_Date__c from TR_Release__c ",
+            "operation": "Upsert",
+            "externalId": "Name"
+        },
+        {
+            "query": "select name, TR_End_Date__c, TR_Objective__c, TR_Release__c, TR_Start_Date__c, TR_Status__c, TR_Total_Working_Days_in_Sprint__c  from TR_Sprint__c",
+            "operation": "Upsert",
+            "externalId": "Name"
+        },
+        {
+            "query": "select name, TR_Epic_Details__c, TR_Epic_Name__c, TR_Status__c from TR_Epic__c",
+            "operation": "Upsert",
+            "externalId": "Name"
+        },
+        {
+            "query": "select name, TR_Acceptance_Criteria__c, TR_Allocated_Sprint__c, TR_Approval_Status__c, TR_As_a__c, TR_Branch_Name__c, TR_Business_Dependencies__c, TR_Cancellation_Reason__c, TR_Comment__c, TR_Completed_Date__c, TR_Epic_Ref__c, TR_Est_Development_mandays__c, TR_External_ID__c, TR_I_want_to__c, TR_IsTechnical_User_Story__c, TR_Pending_Business_Inputs__c, TR_Pending_Tech_Inputs__c, TR_Post_Manual_Steps__c, TR_Pre_Manual_Steps__c, TR_Priority__c, TR_Project__c, TR_Proposed_Sprint__c, TR_So_that__c, TR_Status__c, TR_Story_Point__c, TR_Story_Title__c, TR_Technical_Dependencies__c, TR_Work_Type__c from TR_User_Story__c ",
+            "operation": "Upsert",
+            "externalId": "Name"
+        }
+    ]
+}

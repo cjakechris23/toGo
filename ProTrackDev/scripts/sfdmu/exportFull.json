@@ -1,0 +1,145 @@
+{
+    "promptOnMissingParentObjects": "true",
+    "objects": [
+        {
+            "query": "select createable_true from TR_Project__c",
+            "operation": "Upsert",
+            "externalId": "Name",
+            "master": "true"
+        },
+        {
+            "query": "select createable_true from TR_Release__c ",
+            "operation": "Upsert",
+            "externalId": "Name",
+            "master": "true"
+        },
+        {
+            "query": "select createable_true from TR_Sprint__c",
+            "operation": "Upsert",
+            "externalId": "Name",
+            "master": "true"
+        },
+        {
+            "query": "select createable_true from TR_Epic__c",
+            "operation": "Upsert",
+            "externalId": "Name",
+            "master": "true"
+        },
+        {
+            "query": "select createable_true from TR_User_Story__c ",
+            "operation": "Upsert",
+            "externalId": "Name",
+            "master": "true",
+            "afterAddons" : [
+                {
+                    "module": "core:ExportFiles",
+                    "args" : {
+                        "operation" : "Insert"
+                    }
+                }
+            ]
+        },
+        {
+            "query": "select createable_true from TR_Tester__c ",
+            "operation": "Upsert",
+            "externalId": "Name",
+            "master": "true"
+        },
+        {
+            "query": "select createable_true from TR_Test_Script__c ",
+            "operation": "Upsert",
+            "externalId": "Name",
+            "master": "true"
+        },
+        {
+            "query": "select createable_true from TR_Test_Script_Step__c ",
+            "operation": "Upsert",
+            "externalId": "Name",
+            "master": "true"
+        },
+        {
+            "query": "select createable_true from TR_Test_Execution__c ",
+            "operation": "Upsert",
+            "externalId": "Name",
+            "master": "true"
+        },
+        {
+            "query": "select createable_true from TR_Test_Execution_Step__c ",
+            "operation": "Upsert",
+            "externalId": "Name",
+            "master": "true"
+        },
+        {
+            "query": "select createable_true from TR_Related_User_Story__c ",
+            "operation": "Upsert",
+            "externalId": "Name",
+            "master": "true"
+        },
+        {
+            "query": "select createable_true from TR_Technical_Design__c ",
+            "operation": "Upsert",
+            "externalId": "Name",
+            "master": "true"
+        },
+        {
+            "query": "select createable_true from TR_Design_User_Story_Association__c ",
+            "operation": "Upsert",
+            "externalId": "TR_User_Story__r.Name,TR_Technical_Design__r.Name",
+            "master": "true"
+        },
+        {
+            "query": "select createable_true from TR_Ticket__c ",
+            "operation": "Upsert",
+            "externalId": "Name",
+            "master": "true"
+        },
+        {
+            "query": "select createable_true from CollaborationGroup ",
+            "operation": "Upsert",
+            "externalId": "Name",
+            "master": "true"
+        },
+        {
+            "query": "select CommentCount, IsRichText, LikeCount, ParentId, Title, Type, Body, LinkUrl from TR_User_Story__Feed  where Type IN ('TextPost', 'LinkPost', 'ContentPost') ",
+            "operation": "Insert",
+            "master": "true",
+            "excludedFields": [
+                "RelatedRecordId"
+            ]
+        },
+        {
+            "query": "select CommentCount, IsRichText, LikeCount, ParentId$TR_User_Story__c, Revision, Status, Title, Type, Body, LinkUrl from FeedItem where Type IN ('TextPost', 'LinkPost', 'ContentPost') and Parent.Type = 'TR_User_Story__c' ",
+            "operation": "Insert",
+            "master": "true",
+            "excludedFields": [
+                "RelatedRecordId"
+            ]
+        },
+        {
+            "query": "select createable_true, FeedItemId from Feedlike ",
+            "operation": "Insert",
+            "master": "true",
+            "excludedFields": [
+                "FeedEntityId"
+            ],
+            "excluded": "true"
+        },
+        {
+            "query": "select createable_true, RecordId$ContentDocument from FeedAttachment ",
+            "operation": "Insert",
+            "master": "true",
+            "excludedFields": [
+                "FeedEntityId"
+            ],
+            "afterAddons" : [
+                {
+                    "module": "core:ExportFiles",
+                    "args" : {
+                        "operation" : "Insert"
+                    }
+                }
+            ],
+            "excluded": "true"
+        }
+    ]
+}

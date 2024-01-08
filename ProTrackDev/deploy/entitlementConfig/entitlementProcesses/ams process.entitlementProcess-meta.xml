@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntitlementProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <SObjectType>Case</SObjectType>
+    <active>true</active>
+    <businessHours>AMS Business Hours</businessHours>
+    <description>AMS Support process</description>
+    <entryStartDateField>Case.CreatedDate</entryStartDateField>
+    <exitCriteriaFilterItems>
+        <field>Case.IsClosed</field>
+        <operation>equals</operation>
+        <value>true</value>
+    </exitCriteriaFilterItems>
+    <exitCriteriaFilterItems>
+        <field>Case.Exit_Milestone_Process__c</field>
+        <operation>equals</operation>
+        <value>true</value>
+    </exitCriteriaFilterItems>
+    <isVersionDefault>false</isVersionDefault>
+    <milestones>
+        <milestoneName>Response Time</milestoneName>
+        <minutesCustomClass>myMilestoneTimeCalculator</minutesCustomClass>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <milestoneName>Resolution Time</milestoneName>
+        <minutesCustomClass>myMilestoneTimeCalculator</minutesCustomClass>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <name>AMS Process</name>
+    <versionMaster>5525r000000Crhr</versionMaster>
+    <versionNumber>1</versionNumber>
+</EntitlementProcess>

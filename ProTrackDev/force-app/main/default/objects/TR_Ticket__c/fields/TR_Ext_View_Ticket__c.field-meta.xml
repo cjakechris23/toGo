@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TR_Ext_View_Ticket__c</fullName>
+    <description>Allows the Users to View Tickets (For Experience Cloud Only)</description>
+    <externalId>false</externalId>
+    <formula>$Label.TR_exp_cloud_base_url&amp;&quot;/protrack/s/detail/&quot;&amp;Id</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>View Ticket (External)</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

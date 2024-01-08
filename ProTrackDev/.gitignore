@@ -1,0 +1,11 @@
+.sfdx/
+mdapi/
+node_modules
+.sfdx/sfdx-config.json
+*.log
+*.csv
+package-lock.json
+package.json
+.sfdx/sfdx-config.json
+.sfdx/indexes/lwc/custom-components.json
+.sfdx/typings/lwc/lds.d.ts

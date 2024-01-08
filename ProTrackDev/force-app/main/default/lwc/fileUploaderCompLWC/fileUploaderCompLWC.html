@@ -1,0 +1,19 @@
+<template>
+    <div class="slds-float_left">
+        <div class="slds-m-top_large">
+          <div class="slds-m-around_medium" title="File Upload Demo LWC" icon-name="custom:custom14">
+                <lightning-input type="file"
+                    accept=".xlsx, .xls, .csv, .png, .doc, .docx, .pdf"
+                    label="Attachment" onchange={openfileUpload} multiple="true">
+                </lightning-input>
+          </div>
+          <template if:true={fileData}><p>{fileData.filename}</p></template>
+        </div>
+    </div>
+    <div class="slds-float_left">
+        <div class="slds-m-top_xx-large">
+            <lightning-button variant="Brand" label="Submit File" title="Submit" onclick={handleClick} class="slds-m-right_x-small">                   
+            </lightning-button>
+        </div>
+    </div>
+</template>

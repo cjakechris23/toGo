@@ -1,0 +1,62 @@
+# This is a basic workflow to help you get started with Actions
+
+name: VALIDATE PULL REQUEST TO SPRINTST
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the develop branch
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [ develop ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  validate_pull_request:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Validating to SprintST
+        
+      - name: checkout git
+        run: |
+          git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
+          git fetch --all
+          git checkout ${{ github.BASE_REF }}
+          git checkout ${{ github.HEAD_REF }}
+
+      - uses: sfdx-actions/setup-sfdx@v1
+        with:
+          sfdx-auth-url: ${{ secrets.TARGET_QA }}
+        
+      - name: update sfdx
+        run: sfdx update
+        
+      - name: install git delta
+        run: echo 'Y' | sfdx plugins:install sfdx-git-delta@latest
+        
+      - name: create delta
+        run: sfdx sgd:source:delta -f ${{ github.BASE_REF }} -t ${{ github.HEAD_REF }} --output .
+
+      - name: show package to deploy
+        run: cat package/package.xml
+
+      - name: show package to destroy
+        run: cat destructiveChanges/destructiveChanges.xml
+
+      - name: Validate in SprintST
+        run:  sfdx force:source:deploy -x package/package.xml -w 100 -c
+
+      - name: Destroy
+        run: sfdx force:mdapi:deploy -d destructiveChanges -w 100 -c 

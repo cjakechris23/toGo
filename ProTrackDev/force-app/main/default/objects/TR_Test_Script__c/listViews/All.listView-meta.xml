@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>TR_Module__c</columns>
+    <columns>TR_Test_Title__c</columns>
+    <columns>TR_Introduction__c</columns>
+    <columns>TR_Expected_Result__c</columns>
+    <columns>TR_User_Story__c</columns>
+    <columns>TR_Test_Phase__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

@@ -1,0 +1,271 @@
+<template>
+  <article class="slds-card">
+  <div class="slds-grid slds-gutters">
+  <div class="slds-col slds-size_1-of-2">
+  <article class="slds-card">
+    <lightning-card title={title} icon-name="custom:custom83">
+      <div class="slds-m-around_medium">
+        <div class="slds-grid">
+          <div class="slds-col">
+            <div class="slds-section slds-is-open">
+              <h3 class="slds-section__title slds-theme_shade">
+                <span
+                  class="slds-truncate slds-p-horizontal_small"
+                  title="Section Title"
+                  >Test Details</span
+                >
+              </h3>
+              <div aria-hidden="false" class="slds-section__content">
+                <template if:true={record.data}>
+                  <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-medium-size_1-of-2">
+                      <lightning-input
+                        label="User Story"
+                        data-id="user_story"
+                        value={user_story}
+                        type="text"
+                        read-only
+                      >
+                      </lightning-input>
+                      <lightning-input
+                        label="Test Title"
+                        data-id="introduction"
+                        value={introduction}
+                        type="textarea"
+                        read-only
+                      >
+                      </lightning-input>
+                    </div>
+                    <div class="slds-col slds-medium-size_1-of-2">
+                      <lightning-input
+                        label="Test Phase"
+                        data-id="test_phase"
+                        value={test_phase}
+                        type="text"
+                        read-only
+                      >
+                      </lightning-input>
+                      <lightning-input
+                        label="Tester"
+                        data-id="tester"
+                        value={tester}
+                        type="text"
+                        read-only
+                      >
+                      </lightning-input>
+                    </div>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </lightning-card>
+  </article>
+  </div>
+  <div class="slds-col slds-size_1-of-2">
+    <article class="slds-card">
+      <lightning-card title="Outcome" icon-name="standard:outcome">
+        <div class="slds-m-around_medium">
+          <div class="slds-grid">
+            <div class="slds-col">
+              <div class="slds-section slds-is-open">
+                <lightning-record-edit-form
+                  record-id={recordId}
+                  object-api-name="TR_Test_Execution__c"
+                  onsuccess={handleSuccess}
+                  onerror={handleError}>
+                  <h3 class="slds-section__title slds-theme_shade">
+                    <span
+                      class="slds-truncate slds-p-horizontal_small"
+                      title="Section Title"
+                      >Outcome Summary</span
+                    >
+                  </h3>
+                  <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-2">
+                      <lightning-input-field
+                        field-name="TR_Status__c">
+                      </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                      <lightning-input-field
+                      field-name="TR_Test_Outcome__c">
+                    </lightning-input-field>
+                    </div>
+                  </div>
+                  <lightning-input-field
+                    field-name="TR_Overall_Test_Comments__c">
+                  </lightning-input-field>
+                  <!-- Upload File Button  -->
+                  <c-file-uploader-comp-l-w-c record-id={recordId}>
+                  </c-file-uploader-comp-l-w-c>
+                 <!-- Upload File Button  -->
+                  <div class="slds-float_right">
+                    <div class="slds-m-top_xx-large slds-p-top_xx-large">
+                      <lightning-button
+                        type="submit"
+                        label="Update Test Execution">
+                      </lightning-button>
+                    </div>
+                  </div>
+                </lightning-record-edit-form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </lightning-card>
+    </article>
+    </div>
+  </div>
+  </article>
+  <article class="slds-card">
+    <lightning-card title="Test Steps" icon-name="utility:topic2">
+        <div class="slds-grid">
+          <div class="slds-col"> 
+            <template if:true={execution_steps}>
+              <div> <!-- style="height: 300px;" -->
+                <c-tr-custom-data-table
+                  key-field="Id"
+                  data={testExecutionStepsRecords.data}
+                  onpicklistchange={picklistChanged}
+                  columns={columnsTeExSteps}
+                  onsave={handleSave}
+                  oncellchange={handleCellChange}
+                  oncancel={handleCancel}
+                  onrowaction={handleRowAction}
+                  draft-values={draftValues}
+
+                  resize-column-disabled
+                  column-widths-mode="fixed"
+                  min-column-width="80"
+                  hide-checkbox-column
+                  wrap-text-max-lines="25"
+                  >
+                </c-tr-custom-data-table>
+              </div>                   
+            </template>
+          </div>
+        </div>
+    </lightning-card>
+  </article>
+  <article class="slds-card">
+    <lightning-card title="Tickets" icon-name="custom:custom94">
+      <div class="slds-grid">
+        <div class="slds-col">
+            <div style="height: 300px;">
+              <c-tr-custom-data-table
+                key-field="Id"
+                data={ticketData}
+                columns={ticketColumns}
+                
+                resize-column-disabled
+                column-widths-mode="auto"
+                hide-checkbox-column
+                wrap-text-max-lines="25"
+                >
+              </c-tr-custom-data-table>
+          </div>
+        </div>
+      </div>
+    </lightning-card>
+  </article>
+  <div class="slds-card__body slds-card__body_inner"></div>
+  <!-- Detail view modal -->
+  <template if:true={NewTicketDialog}>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+      aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_small slds-scrollable_y">
+      <div class="slds-modal__container slds-modal__content">
+        <!-- modal header -->
+        <header class="slds-modal__header ">
+          <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+            title="Close" onclick={closeModal}>
+            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+              size="small">
+            </lightning-icon>
+          </button>
+          <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Create a new Ticket</h2>
+        </header>
+        <!-- showing record edit form -->
+        <div class="slds-theme_default">
+          <lightning-record-edit-form layout-type="Full" object-api-name="TR_Ticket__c" record-id="">
+            <lightning-messages></lightning-messages>
+            <div if:true={error}>
+                {error}
+            </div>
+            <h3 class="slds-section__title slds-theme_shade slds-p-top_x-large">
+              <span
+                class="slds-truncate slds-p-horizontal_small"
+                title="Section Title"
+                >Key Information</span
+              >
+            </h3>
+            <div class="slds-col slds-size_1-of-1">
+              <lightning-input-field field-name="TR_Problem__c" value={default_TR_Problem__c} onchange={problemChanged}>
+              </lightning-input-field>
+              <lightning-input-field field-name="TR_Problem_Description__c" value={default_TR_Problem_Description__c} onchange={problemDescriptionChanged}>
+              </lightning-input-field>
+              <lightning-input-field field-name="TR_Functional_Comment__c" value={default_TR_Functional_Comment__c} onchange={commentsChanged}>
+              </lightning-input-field>
+              <div class="slds-grid">
+                <div class="slds-col slds-size_1-of-2">
+                  <lightning-input-field field-name="TR_Business_Impact__c" onchange={businessImpactChanged} required="true">
+                  </lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                  <lightning-input-field field-name="TR_Ticket_Type__c" value={default_TR_Ticket_Type__c} onchange={ticketTypeChanged} required="true">
+                  </lightning-input-field>
+                </div>
+              </div>
+            </div>
+            <h3 class="slds-section__title slds-theme_shade">
+              <span
+                class="slds-truncate slds-p-horizontal_small"
+                title="Section Title"
+                >Default fields</span
+              >
+            </h3>
+            <div class="slds-grid">
+              <div class="slds-col slds-size_1-of-2">
+                <lightning-input-field field-name="TR_Status__c" value={default_TR_Status__c} onchange={statusChanged}>
+                </lightning-input-field>
+                <!-- <lightning-input-field field-name="TR_Test_Script__c" value={default_TR_Test_Script__c} onchange={testScriptChanged}>
+                </lightning-input-field> -->
+                <lightning-input-field field-name="TR_Project__c" value={default_TR_Project__c} onchange={projectChanged}>
+                </lightning-input-field>
+                <lightning-input-field field-name="TR_Test_Execution__c" value={default_TR_Test_Execution__c} onchange={testExecutionChanged}>
+                </lightning-input-field>
+              </div>
+              <div class="slds-col slds-size_1-of-2">
+                <lightning-input-field field-name="TR_Logged_by__c" value={default_TR_Logged_by__c} onchange={loggedByChanged}>
+                </lightning-input-field>
+                <lightning-input-field field-name="TR_Test_Phase__c" value={default_TR_Test_Phase__c} onchange={testPhaseChanged}>
+                </lightning-input-field>
+                <lightning-input-field field-name="TR_User_Story__c" value={default_TR_User_Story__c} onchange={userStoryChanged}>
+                </lightning-input-field>
+                <lightning-input-field field-name="TR_Tester__c" value={default_TR_Tester__c} onchange={testerChanged}>
+                </lightning-input-field>
+              </div>
+            </div>
+            <br />
+            <ul class="slds-button-group-row slds-grid slds-grid_align-center">
+              <li class="slds-button-group-item">
+                <lightning-button class="slds-m-top_small" variant="brand" name="update"
+                  label="Save" onclick={handleTicketSubmit}>
+                </lightning-button>
+              </li>
+              <li class="slds-button-group-item">
+                <lightning-button class="slds-m-top_small" variant="brand" type="text"
+                  label="Cancel" onclick={closeModal}>
+                </lightning-button>
+              </li>
+            </ul>
+          </lightning-record-edit-form><br/>
+          <div></div>
+        </div>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+</template>

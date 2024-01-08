@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TR_Status__c</fullName>
+    <externalId>false</externalId>
+    <label>Status</label>
+    <required>true</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Backlog</fullName>
+                <default>false</default>
+                <label>0-Backlog</label>
+            </value>
+            <value>
+                <fullName>Story Definition</fullName>
+                <default>false</default>
+                <label>1-Story Definition</label>
+            </value>
+            <value>
+                <fullName>Ready for Design</fullName>
+                <default>false</default>
+                <label>2-Ready for Design</label>
+            </value>
+            <value>
+                <fullName>In Design</fullName>
+                <default>false</default>
+                <label>3-In Design</label>
+            </value>
+            <value>
+                <fullName>Ready for Development</fullName>
+                <default>false</default>
+                <label>4-Ready for Development</label>
+            </value>
+            <value>
+                <fullName>In Development</fullName>
+                <default>false</default>
+                <label>5-In Development</label>
+            </value>
+            <value>
+                <fullName>Ready for Sprint Demo</fullName>
+                <default>false</default>
+                <label>6-Ready for Sprint Demo</label>
+            </value>
+            <value>
+                <fullName>Ready for Deployment</fullName>
+                <default>false</default>
+                <label>7-Ready for Deployment</label>
+            </value>
+            <value>
+                <fullName>In Sprint Testing</fullName>
+                <default>false</default>
+                <label>8-In Sprint Testing</label>
+            </value>
+            <value>
+                <fullName>DONE</fullName>
+                <default>false</default>
+                <label>9-DONE</label>
+            </value>
+            <value>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+                <label>99-Cancelled</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

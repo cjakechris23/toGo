@@ -1,0 +1,21 @@
+{
+  "orgName": "Deloitte",
+  "edition": "Developer",
+  "language": "en_US",
+  "features": [],
+  "settings": {
+    "lightningExperienceSettings": {
+      "enableS1DesktopEnabled": true
+    },
+    "mobileSettings": {
+      "enableS1EncryptedStoragePref2": false
+    },
+    "chatterSettings": {
+      "enableChatter": true
+    },
+    "entitlementSettings": {
+      "enableEntitlements": true,
+      "enableEntitlementVersioning": true
+    }
+  }
+}

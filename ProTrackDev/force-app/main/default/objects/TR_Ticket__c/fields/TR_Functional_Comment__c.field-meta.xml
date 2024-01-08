@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TR_Functional_Comment__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Fill in here all the additional comments, screenshots or steps to reproduce the issue</inlineHelpText>
+    <label>Comments / Notes / Steps</label>
+    <length>32768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

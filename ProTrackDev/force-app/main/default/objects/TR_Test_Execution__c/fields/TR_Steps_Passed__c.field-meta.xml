@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TR_Steps_Passed__c</fullName>
+    <externalId>false</externalId>
+    <label>Steps Passed</label>
+    <summaryFilterItems>
+        <field>TR_Test_Execution_Step__c.TR_Step_Outcome__c</field>
+        <operation>equals</operation>
+        <value>Pass, Passed with issues</value>
+    </summaryFilterItems>
+    <summaryForeignKey>TR_Test_Execution_Step__c.TR_Test_Execution__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <type>Summary</type>
+</CustomField>

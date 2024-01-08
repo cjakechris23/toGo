@@ -1,0 +1,88 @@
+<apex:page standardcontroller="TR_Test_Execution__c" extensions="TR_RunTestScript_Controller">
+<script type="text/javascript" src="{!URLFOR($Resource.MaxLength)}"></script>
+<apex:form >
+    <apex:pageBlock mode="Edit"> 
+        <apex:pageMessages rendered="{!stepsComplete}"/>
+        <apex:PageBlockSection title="Test Details" columns="2">
+            <apex:PageBlockSectionItem >
+                <apex:outputLabel value="User Story" for="TestUS"/>
+                <apex:outputField value="{!TR_Test_Execution__c.TR_User_Story__c}" id="TestUS"/>
+            </apex:pageblocksectionItem>
+            <apex:PageBlockSectionItem >
+            </apex:pageblocksectionItem>
+                <apex:PageBlockSectionItem >
+                <apex:outputLabel value="Test Id" for="TestName"/>
+                <apex:outputField value="{!TR_Test_Execution__c.Name}" id="TestName"/>
+            </apex:PageBlockSectionItem>
+            <apex:pageblocksectionItem ><apex:outputLabel value="Test Phase"/>
+                <apex:outputField value="{!TR_Test_Execution__c.TR_Test_Phase__c}" id="testPhase"/>
+            </apex:pageblocksectionItem>
+            <apex:pageblocksectionItem >
+            </apex:pageblocksectionItem>
+            <apex:PageBlockSectionItem ><apex:outputLabel value="Description"/>
+                <apex:outputField value="{!TR_Test_Execution__c.TR_Test_Title__c}"/>
+            </apex:PageBlockSectionItem>
+            <apex:PageBlockSectionItem > 
+                <apex:outputLabel value="Introduction"/>
+            <apex:outputField value="{!TR_Test_Execution__c.TR_Introduction__c}"/></apex:PageBlockSectionItem>
+            <!-- <apex:PageBlockSectionItem > 
+                <apex:outputLabel value="Tester Role"/>
+            <apex:outputField value="{!template.TR_Tester_Role__c}"/></apex:PageBlockSectionItem> -->
+        </apex:pageblockSection>
+    </apex:pageBlock>
+    
+    <apex:pageblock >
+        <apex:pageblockSection columns="1" title="New Tickets" id="bugblock" collapsible="true">
+        <apex:pageblocktable value="{!bugs}" var="b" columns="7" id="tablebugs" rendered="{!isnewBugs}">
+        <apex:column value="{!b.TR_Test_Script__c}"/>
+        <apex:column value="{!b.TR_Test_Phase__c}"/>
+        <apex:column headervalue="{!$ObjectType.TR_Ticket__c.fields.TR_Technology__c.Label}" style="text-align:center;">
+            <apex:inputField value="{!b.TR_Technology__c}" required="true"/>
+        </apex:column>
+        <apex:column value="{!b.TR_Status__c}"/>
+        <apex:column headerValue="Impact"><apex:inputField value="{!b.TR_Business_Impact__c}"/></apex:column>
+        <apex:column headerValue="Summary"><apex:inputField value="{!b.TR_Problem__c}" required="true"/></apex:column>
+        <apex:column headerValue="Description"><apex:inputtextarea cols="40" rows="5" value="{!b.TR_Problem_Description__c}"/></apex:column>
+        </apex:pageblocktable>
+        </apex:pageblockSection>
+        <apex:pageblockSection columns="1" title="Test Steps" id="testStep" collapsible="true">
+            <apex:pageBlockTable value="{!TestSp}" var="step" columns="9">
+            <apex:column value="{!step.TR_Sequence__c}"/>
+            <!-- <apex:column value="{!step.TR_Execution_Step__c}"/> -->
+            <apex:column value="{!step.TR_Action__c}"/>
+            <apex:column value="{!step.TR_Expected_Result__c}"/>
+            <apex:column value="{!step.TR_Tester_Role__c}"/>
+            <apex:column headerValue="Test Outcome"><apex:inputField value="{!step.TR_Step_Outcome__c}" /></apex:column>
+            <apex:column headerValue="Comments"><apex:inputTextarea cols="40" rows="5" value="{!step.TR_Comments__c}" onKeyDown="textCounter(document.getElementById(this.form.name),5);" onKeyUp="textCounter(document.getElementById(this.form.name),5);"/></apex:column>
+            <apex:column headerValue="Add a Ticket"> 
+            <apex:commandButton action="{!addBug}" value="Add Ticket" reRender="bugblock" > 
+            <apex:param name="testId" value="{!step.id}"/>
+            <apex:param name="testName" value="{!step.name}"/>
+            </apex:commandButton>
+            </apex:column>
+            <apex:column headerValue="Add an Attachment">
+                <apex:commandLink styleClass="btn" style="text-decoration:none;padding:4px;vertical-align: middle" 
+                                  action="{!AttachFile}" value="Attach File">
+                    <apex:param name="testId" value="{!step.id}"/>
+                    <apex:param name="testName" value="{!step.name}"/>
+                </apex:commandLink> 
+            <!-- Added to link to Test Execution Step record to view Tickets/Attachements  
+            &nbsp;<apex:outputField value="{!step.DDTracker__Related_Tickets__c}" style="text-decoration:none;padding:4px;vertical-align: middle" />-->
+            </apex:column> 
+            </apex:pageBlockTable> 
+        </apex:pageblockSection>
+    </apex:pageBlock>
+    <apex:pageBlock >
+    <apex:pageBlockButtons ><apex:commandButton action="{!save}" value="Save test execution"/></apex:pageBlockButtons>
+        <apex:PageBlockSection title="Test Outcome" columns="2">
+            <apex:pageblockSection columns="1">
+            <apex:PageBlockSectionItem ><apex:outputLabel value="Overall Test Outcome"/>
+            <apex:inputField value="{!TR_Test_Execution__c.TR_Test_Outcome__c}" /></apex:PageBlockSectionItem>
+                <apex:PageBlockSectionItem ><apex:outputLabel value="Overall Test Comments"/>
+                <apex:inputtextarea value="{!TR_Test_Execution__c.TR_Overall_Test_Comments__c}" cols="100" rows="5" />
+                </apex:PageBlockSectionItem>
+            </apex:PageBlockSection>
+        </apex:PageBlockSection>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

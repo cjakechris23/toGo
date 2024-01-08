@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Ticket Developer Assignment temail</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Ticket Developer Assignment</name>
+    <style>none</style>
+    <subject>Ticket: {!TR_Ticket__c.TR_Test_Script__c} - {!TR_Ticket__c.Name} -  {!TR_Ticket__c.TR_Problem__c} Assigned to {!TR_Ticket__c.TR_Ticket_Developer__c}</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

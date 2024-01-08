@@ -1,0 +1,13 @@
+The following case is now Ready for Retesting:  
+User:  {!TR_Ticket__c.CreatedBy}
+Problem:  {!TR_Ticket__c.TR_Problem__c}
+{!TR_Ticket__c.TR_Problem_Description__c}
+Test Script:
+{!TR_Ticket__c.TR_Test_Script__c}
+
+
+
+Resolution: 
+{!TR_Ticket__c.TR_Developer_Comment__c}
+
+Click on the link to access the case:  {!TR_Ticket__c.Link}

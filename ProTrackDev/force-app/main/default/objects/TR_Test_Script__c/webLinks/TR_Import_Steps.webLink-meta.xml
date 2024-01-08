@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TR_Import_Steps</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <height>600</height>
+    <linkType>url</linkType>
+    <masterLabel>Import Steps</masterLabel>
+    <openType>sidebar</openType>
+    <protected>false</protected>
+    <url>/dataImporter/dataimporter.app?objectSelection=TR_Test_Script_Step__c</url>
+</WebLink>

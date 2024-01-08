@@ -1,0 +1,11 @@
+<aura:component
+  controller="TR_RunTestExecution_Controller"
+  implements="force:appHostable,force:hasRecordId,lightning:isUrlAddressable"
+>
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}"></aura:handler>
+  <aura:attribute name="srecordId" type="String"></aura:attribute>
+
+  <c:trRunTestExecutionLWC
+    recordId="{!v.srecordId}"
+  ></c:trRunTestExecutionLWC>
+</aura:component>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Change_Request</fullName>
+    <active>true</active>
+    <businessProcess>Change Request Process</businessProcess>
+    <compactLayoutAssignment>Case</compactLayoutAssignment>
+    <description>Please select Change Request for enhancement support</description>
+    <label>Change Request</label>
+    <picklistValues>
+        <picklist>Origin</picklist>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Priority</picklist>
+        <values>
+            <fullName>1-Severe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2-Major</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3-Minor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4-Low</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Analysis Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bug</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Configuration Change Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Loader Investigation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Patch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deployment Validation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Duplicate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enhancement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Minor Code Change Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Queries</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UAT Refresh</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warranty</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

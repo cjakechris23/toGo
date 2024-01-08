@@ -1,0 +1,21 @@
+.slds-tabs_scoped__link,
+.slds-tabs--scoped__link {
+  /* white-space: pre;
+  height: auto;
+  line-height: 2.2 !important; */
+}
+.pre-wrap {
+  white-space: pre-wrap;
+}
+
+.picklist-container .slds-dropdown,
+.lookup-container .slds-dropdown {
+  position: relative !important;
+  z-index: 99 !important;
+  max-height: 120px;
+  overflow-y: scroll;
+}
+
+.table-overflow {
+  overflow-y: auto;
+}

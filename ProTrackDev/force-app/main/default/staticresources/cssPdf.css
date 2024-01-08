@@ -1,0 +1,43 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.tableStory {
+  font-size: 10px;
+}
+
+.usHeader1 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.usHeader2 {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.tableContent {
+  padding-left: 5px;
+}
+/*Size of image in richtext text areas*/
+.sfdc_richtext img{
+  border: 0;
+  height: 320px;
+  max-width: 500px;
+}
+
+@page {
+  size: portrait; /*landscape orientation*/
+  /*page numbers in the bottom center of each page in the pdf document*/
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 80%;
+  }
+  /*placeholders for other content areas*/
+  @bottom-center {
+    content: "Confidental";
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 80%;
+  }
+}

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TR_Module__c</fullName>
+    <externalId>false</externalId>
+    <label>Module</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Account</fullName>
+                <default>false</default>
+                <label>Account</label>
+            </value>
+            <value>
+                <fullName>Contact</fullName>
+                <default>false</default>
+                <label>Contact</label>
+            </value>
+            <value>
+                <fullName>Lead</fullName>
+                <default>false</default>
+                <label>Lead</label>
+            </value>
+            <value>
+                <fullName>Opportunity</fullName>
+                <default>false</default>
+                <label>Opportunity</label>
+            </value>
+            <value>
+                <fullName>Activity</fullName>
+                <default>false</default>
+                <label>Activity</label>
+            </value>
+            <value>
+                <fullName>Campaign</fullName>
+                <default>false</default>
+                <label>Campaign</label>
+            </value>
+            <value>
+                <fullName>Delegate Admin</fullName>
+                <default>false</default>
+                <label>Delegate Admin</label>
+            </value>
+            <value>
+                <fullName>Territory</fullName>
+                <default>false</default>
+                <label>Territory</label>
+            </value>
+            <value>
+                <fullName>Product</fullName>
+                <default>false</default>
+                <label>Product</label>
+            </value>
+            <value>
+                <fullName>Sales Target</fullName>
+                <default>false</default>
+                <label>Sales Target</label>
+            </value>
+            <value>
+                <fullName>Contract Renewal</fullName>
+                <default>false</default>
+                <label>Contract Renewal</label>
+            </value>
+            <value>
+                <fullName>Integration</fullName>
+                <default>false</default>
+                <label>Integration</label>
+            </value>
+            <value>
+                <fullName>MIF</fullName>
+                <default>false</default>
+                <label>MIF</label>
+            </value>
+            <value>
+                <fullName>Mass Upload</fullName>
+                <default>false</default>
+                <label>Mass Upload</label>
+            </value>
+            <value>
+                <fullName>Security Settings</fullName>
+                <default>false</default>
+                <label>Security Settings</label>
+            </value>
+            <value>
+                <fullName>Salesforce1</fullName>
+                <default>false</default>
+                <label>Salesforce1</label>
+            </value>
+            <value>
+                <fullName>Reports and Dashboards</fullName>
+                <default>false</default>
+                <label>Reports and Dashboards</label>
+            </value>
+            <value>
+                <fullName>Data Migration</fullName>
+                <default>false</default>
+                <label>Data Migration</label>
+            </value>
+            <value>
+                <fullName>SF1 Account</fullName>
+                <default>false</default>
+                <label>SF1 Account</label>
+            </value>
+            <value>
+                <fullName>SF1 Contact</fullName>
+                <default>false</default>
+                <label>SF1 Contact</label>
+            </value>
+            <value>
+                <fullName>SF1 Lead</fullName>
+                <default>false</default>
+                <label>SF1 Lead</label>
+            </value>
+            <value>
+                <fullName>SF1 Opportunity</fullName>
+                <default>false</default>
+                <label>SF1 Opportunity</label>
+            </value>
+            <value>
+                <fullName>SF1 Activity</fullName>
+                <default>false</default>
+                <label>SF1 Activity</label>
+            </value>
+            <value>
+                <fullName>SF1 Campaign</fullName>
+                <default>false</default>
+                <label>SF1 Campaign</label>
+            </value>
+            <value>
+                <fullName>SF1 Territory</fullName>
+                <default>false</default>
+                <label>SF1 Territory</label>
+            </value>
+            <value>
+                <fullName>SF1 Product</fullName>
+                <default>false</default>
+                <label>SF1 Product</label>
+            </value>
+            <value>
+                <fullName>SF1 Sales Target</fullName>
+                <default>false</default>
+                <label>SF1 Sales Target</label>
+            </value>
+            <value>
+                <fullName>SF1 MIF</fullName>
+                <default>false</default>
+                <label>SF1 MIF</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

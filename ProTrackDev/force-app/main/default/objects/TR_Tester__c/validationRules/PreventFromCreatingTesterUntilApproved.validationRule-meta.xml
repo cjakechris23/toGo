@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PreventFromCreatingTesterUntilApproved</fullName>
+    <active>false</active>
+    <errorConditionFormula>AND(
+ISNEW(),
+NOT(ISPICKVAL( TR_Test_Template__r.TR_Approval_Status__c ,&apos;Approved&apos;))
+)</errorConditionFormula>
+    <errorMessage>You cannot create a Tester record until the related Test Script is in an &quot;Approved&quot; status</errorMessage>
+</ValidationRule>

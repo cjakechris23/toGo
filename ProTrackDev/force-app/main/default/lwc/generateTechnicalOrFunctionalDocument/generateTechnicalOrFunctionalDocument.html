@@ -1,0 +1,42 @@
+<!-- sldsValidatorIgnore -->
+<template>
+  <lightning-quick-action-panel title="Generate Artifacts">
+    <br />
+    <lightning-combobox
+      name="types"
+      label="Select the artifact type you want to generate:"
+      value={documentTypeSelected}
+      options={TypeOptions}
+      onchange={handleTypeChange}
+      field-level-help="We select all artifacts allocated to the specific release. We do not apply any extra filter on, for instance, specific statuses"
+      required
+    >
+    </lightning-combobox>
+    <br />
+    <lightning-input
+      type="text"
+      name="version"
+      label="Enter Document Version"
+      value={versionValue}
+      onchange={handleVersionChange}
+      required
+    ></lightning-input>
+    <br />
+    <br />
+    <div slot="footer">
+      <lightning-button
+        class="slds-m-right_x-small"
+        variant="brand"
+        label="Generate Document"
+        onclick={generateDocument}
+        disabled={isDisableButton}
+      ></lightning-button>
+
+      <lightning-button
+        variant="brand-outline"
+        label="Cancel"
+        onclick={cancelAction}
+      ></lightning-button>
+    </div>
+  </lightning-quick-action-panel>
+</template>

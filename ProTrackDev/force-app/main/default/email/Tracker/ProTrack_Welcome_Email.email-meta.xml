@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <letterhead>ProTrack_Email_Letterhead</letterhead>
+    <name>ProTrack Welcome Email</name>
+    <style>formalLetter</style>
+    <subject>Welcome to ProTrack</subject>
+    <textOnly>Hello {!Receiving_User.Name},
+
+Welcome to ProTrack! We are happy to have you onboard and are ready to support you as you embark on your Testing journey.
+
+Before Starting Your Journey:
+
+1. Verify your account here
+
+2. Your login username: {!Receiving_User.Username}
+
+3. Access the ProTrack platform by using this link</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
